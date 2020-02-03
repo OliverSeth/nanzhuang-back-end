@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/nanzhuang?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 6000
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1
+        min-idle: 0
+    password: 123456
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  devtools:
+    restart:
+      enabled: true
+  jakson:
+    date-format: yyyy-MM-dd
+    time-zone: GTM+8
+
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8089
