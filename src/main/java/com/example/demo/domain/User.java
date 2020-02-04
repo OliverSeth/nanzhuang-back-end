@@ -31,6 +31,8 @@ public class User {
         this.roleName = roleName;
     }
 
+    public User(){}
+
     public Integer getUserId() {
         return userId;
     }
