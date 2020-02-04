@@ -22,6 +22,6 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedException.class)
     public Result handle401() {
-        return Result.exception(-2, "UnauthorizedException");
+        return Result.exception(-2, "UnauthorizedException","无权限");
     }
 }

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.config;
 
 import com.example.demo.realm.MyShiroRealm;
 import org.apache.shiro.mgt.SecurityManager;
