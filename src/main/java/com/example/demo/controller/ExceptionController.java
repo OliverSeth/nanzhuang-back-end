@@ -2,9 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.utils.Result;
 import org.apache.shiro.ShiroException;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -22,6 +24,12 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedException.class)
     public Result handle401() {
-        return Result.exception(-2, "UnauthorizedException","无权限");
+        return Result.exception(-2, "UnauthorizedException", "无权限");
+    }
+
+    @ResponseBody
+    @ExceptionHandler(AuthenticationException.class)
+    public Result handleTokenException(AuthenticationException e) {
+        return Result.exception(-3, e.toString(), "AuthenticationException");
     }
 }
