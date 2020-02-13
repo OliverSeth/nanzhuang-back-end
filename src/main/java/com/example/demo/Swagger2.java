@@ -6,9 +6,13 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Oliver Seth on 2019/4/6 21:13
@@ -24,17 +28,23 @@ public class Swagger2 {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.demo.controller"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .securitySchemes(security());
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Intell")
-                .description("BASE_URL:120.77.204.51:8081")
+                .title("nanzhuang")
+                .description("BASE_URL:120.77.204.51:8089")
 //                .termsOfServiceUrl("http://www.baidu.com")
                 .contact("Oliver")
                 .version("1.0")
                 .build();
     }
 
+    private List<ApiKey> security() {
+        List<ApiKey> apiKeyList= new ArrayList<>();
+        apiKeyList.add(new ApiKey("token", "token", "header"));
+        return apiKeyList;
+    }
 }
