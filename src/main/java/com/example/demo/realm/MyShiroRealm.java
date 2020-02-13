@@ -3,7 +3,6 @@ package com.example.demo.realm;
 import com.example.demo.domain.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
-import com.example.demo.utils.JWTUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -61,6 +60,9 @@ public class MyShiroRealm extends AuthorizingRealm {
         User user = userService.findByUserName(username);
         if (user == null) {
             throw new AuthenticationException("User not exists!");
+        }
+        if(!JWTUtils.verify(token,username,user.getPassword())){
+            throw new AuthenticationException("Wrong token!");
         }
 //        if(user.getPassword().equals())
         return new SimpleAuthenticationInfo(token, token, getName());
