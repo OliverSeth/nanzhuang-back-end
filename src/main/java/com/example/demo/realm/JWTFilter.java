@@ -1,8 +1,12 @@
 package com.example.demo.realm;
 
+import com.example.demo.domain.User;
+import com.example.demo.service.UserService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -43,6 +47,13 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         if (isLoginAttempt(request, response)) {
             try {
                 executeLogin(request, response);
+                HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+                String token = httpServletRequest.getHeader("token");
+                String username = JWTUtils.getUsername(token);
+                if (username == null) {
+                    throw new AuthenticationException("Token invalid");
+                }
+                request.setAttribute("username", username);
             } catch (Exception e) {
                 response401(request, response);
             }
