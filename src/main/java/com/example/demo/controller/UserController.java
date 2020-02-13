@@ -1,23 +1,21 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.User;
-import com.example.demo.realm.JWTToken;
 import com.example.demo.service.UserService;
-import com.example.demo.utils.JWTUtils;
+import com.example.demo.realm.JWTUtils;
 import com.example.demo.utils.ConstantCode;
 import com.example.demo.utils.Result;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresGuest;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.subject.Subject;
+import org.crazycake.shiro.RedisCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,5 +95,16 @@ public class UserController {
 //        String token = JWTUtils.sign(userName, password);
 //        subject.login(new JWTToken(token));
 //        return null;
+    }
+
+    @GetMapping("/info")
+    public Result info(HttpServletRequest request) {
+        String username = (String) request.getAttribute("username");
+        User user = userService.findByUserName(username);
+        Map<String, String> userInfo = new HashMap<>();
+        userInfo.put("userId", user.getUserId().toString());
+        userInfo.put("username", user.getUserName());
+        userInfo.put("role", user.getRoleName());
+        return Result.success(userInfo);
     }
 }
