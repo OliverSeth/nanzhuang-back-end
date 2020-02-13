@@ -3,6 +3,8 @@ package com.example.demo.service.impl;
 import com.example.demo.domain.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
+import com.sun.org.apache.xml.internal.resolver.readers.ExtendedXMLCatalogReader;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public void changePassword(Integer userId, String password,String salt) {
+        userRepository.changePassword(userId,password,salt);
     }
 }
