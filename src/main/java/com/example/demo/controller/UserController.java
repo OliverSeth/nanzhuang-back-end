@@ -5,15 +5,16 @@ import com.example.demo.service.UserService;
 import com.example.demo.realm.JWTUtils;
 import com.example.demo.utils.ConstantCode;
 import com.example.demo.utils.Result;
+import com.example.demo.utils.LogUtils;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresGuest;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.crazycake.shiro.RedisCacheManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -46,9 +47,11 @@ public class UserController {
     public Result register(String userName, String password, String role) {
         String salt = userName + System.currentTimeMillis();
         if (userName == null || userName.equals("")) {
+            LogUtils.getWarnLog("UserName is empty.");
             return Result.failed(1, "UserName is empty.");
         }
         if (password == null || password.equals("")) {
+            LogUtils.getWarnLog(userName, "Password is empty.");
             return Result.failed(2, "Password is empty.");
         }
         try {
@@ -56,11 +59,14 @@ public class UserController {
             if (user == null) {
                 password = (new Md5Hash(password, salt, ConstantCode.HASH_ITERATION)).toString();
                 userService.save(new User(userName, password, salt, role));
+                LogUtils.getInfoLog(userName, "registered successfully.");
                 return Result.success("Success registration.");
             } else {
+                LogUtils.getWarnLog("User exists.");
                 return Result.failed(3, "User exists.");
             }
         } catch (Exception e) {
+            LogUtils.getErrorLog(userName, "register" + e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }
@@ -74,6 +80,7 @@ public class UserController {
     })
     public Result login(String userName, String password) {
         if (userName == null || userName.equals("")) {
+            LogUtils.getWarnLog("UserName is empty.");
             return Result.failed(1, "UserName is empty.");
         }
         try {
@@ -84,11 +91,14 @@ public class UserController {
                 Map<String, String> userInfo = new HashMap<>();
                 userInfo.put("token", token);
                 userInfo.put("userId", user.getUserId().toString());
+                LogUtils.getInfoLog(userName, "login successfully.");
                 return Result.success(userInfo);
             } else {
+                LogUtils.getWarnLog(userName, "Wrong Password.");
                 return Result.failed(2, "Wrong Password.");
             }
         } catch (Exception e) {
+            LogUtils.getErrorLog(userName, "login", e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
 //        Subject subject= SecurityUtils.getSubject();
@@ -119,11 +129,14 @@ public class UserController {
                 String token = JWTUtils.sign(username, password);
                 Map<String, String> res = new HashMap<>();
                 res.put("token", token);
+                LogUtils.getInfoLog(username, "change password successfully.");
                 return Result.success(res);
             } else {
+                LogUtils.getWarnLog(username, "wrong password.");
                 return Result.failed(1, "Wrong password.");
             }
         } catch (Exception e) {
+            LogUtils.getErrorLog(username, "change password", e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }
