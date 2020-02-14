@@ -32,3 +32,10 @@ server:
   tomcat:
     uri-encoding: UTF-8
   port: 8089
+
+logging:
+  level:
+    root: warn
+    com.example.demo: info
+  file:
+    name: D:/学习/毕设/demo2/log.log
