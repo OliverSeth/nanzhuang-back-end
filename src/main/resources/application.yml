@@ -38,4 +38,5 @@ logging:
     root: warn
     com.example.demo: info
   file:
-    name: D:/学习/毕设/demo2/log.log
+    name: /home/nanzhuang/back-end/log.log
+#    name: D:/学习/毕设/demo2/log.log
