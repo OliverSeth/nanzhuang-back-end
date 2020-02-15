@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Oliver Seth on 2020/2/15 16:00
@@ -64,8 +66,11 @@ public class MerchantController {
                 return Result.failed(6, "Unique code has been registered.");
             }
             merchantService.save(new Merchant(username, ownerName, businessCode, uniqueCode));
+            Merchant merchant = merchantService.findByUsername(username);
+            Map<String, String> map = new HashMap<>();
+            map.put("merchantId", merchant.getMerchantId().toString());
             LogUtils.getInfoLog(username, "merchant registered successfully.");
-            return Result.success();
+            return Result.success(map);
         } catch (Exception e) {
             LogUtils.getErrorLog(username, "register merchant.", e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
