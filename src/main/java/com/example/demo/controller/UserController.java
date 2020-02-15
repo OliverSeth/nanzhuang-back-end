@@ -31,6 +31,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/auth")
+    @ApiOperation(value = "不要用这个接口", notes = "不要用这个接口")
     public Result auth(int code) {
         String msg = (code == 1) ? "未登录" : "未授权";
         return Result.failed(ConstantCode.UNAUTHORIZED_CODE, msg);
