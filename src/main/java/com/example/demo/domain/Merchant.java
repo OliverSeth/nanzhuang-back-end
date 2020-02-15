@@ -12,6 +12,9 @@ public class Merchant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer merchantId;
 
+    @Column(unique = true)
+    private String username;
+
     private String ownerName;
 
     @Column(unique = true)
@@ -20,12 +23,30 @@ public class Merchant {
     @Column(unique = true)
     private String uniqueCode;
 
+    public Merchant() {
+    }
+
+    public Merchant(String username, String ownerName, String businessCode, String uniqueCode) {
+        this.username = username;
+        this.ownerName = ownerName;
+        this.businessCode = businessCode;
+        this.uniqueCode = uniqueCode;
+    }
+
     public Integer getMerchantId() {
         return merchantId;
     }
 
     public void setMerchantId(Integer merchantId) {
         this.merchantId = merchantId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getOwnerName() {

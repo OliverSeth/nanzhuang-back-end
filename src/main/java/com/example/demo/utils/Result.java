@@ -22,7 +22,7 @@ public class Result<T> {
     }
 
     public static <T> Result<T> success(T data) {
-        return new Result<>(0, data, "success");
+        return new Result<>(0, data, "Success");
     }
 
     public static Result success() {
