@@ -12,5 +12,7 @@ public interface MerchantService {
 
     Merchant findByUniqueCode(String uniqueCode);
 
+    Merchant findByMerchantId(Integer merchantId);
+
     void save(Merchant merchant);
 }

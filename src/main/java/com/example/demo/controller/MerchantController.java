@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -73,6 +74,24 @@ public class MerchantController {
             return Result.success(map);
         } catch (Exception e) {
             LogUtils.getErrorLog(username, "register merchant.", e);
+            return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
+        }
+    }
+
+    @GetMapping("/info")
+    @ApiOperation("商户信息")
+    @ApiImplicitParam(paramType = "query", name = "merchantId", value = "商户id", required = true, dataType = "int")
+    public Result merchantInfo(Integer merchantId) {
+        try {
+            Merchant merchant = merchantService.findByMerchantId(merchantId);
+            Map<String, String> map = new HashMap<>();
+            map.put("ownerName", merchant.getOwnerName());
+            map.put("businessCode", merchant.getBusinessCode());
+            map.put("uniqueCode", merchant.getUniqueCode());
+            LogUtils.getInfoLog("", "get information for merchant " + merchant.getOwnerName());
+            return Result.success(map);
+        } catch (Exception e) {
+            LogUtils.getErrorLog("get merchant information", e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }

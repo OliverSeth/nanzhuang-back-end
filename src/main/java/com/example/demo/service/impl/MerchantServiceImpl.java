@@ -25,6 +25,11 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
+    public Merchant findByMerchantId(Integer merchantId) {
+        return merchantRepository.findByMerchantId(merchantId);
+    }
+
+    @Override
     public Merchant findByBusinessCode(String businessCode) {
         return merchantRepository.findByBusinessCode(businessCode);
     }
