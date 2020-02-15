@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.Merchant;
+import com.example.demo.domain.User;
 import com.example.demo.service.MerchantService;
+import com.example.demo.service.UserService;
 import com.example.demo.utils.ConstantCode;
 import com.example.demo.utils.LogUtils;
 import com.example.demo.utils.Result;
@@ -10,10 +12,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -27,6 +26,9 @@ import java.util.Map;
 public class MerchantController {
     @Autowired
     MerchantService merchantService;
+
+    @Autowired
+    UserService userService;
 
     @PostMapping("/register")
     @RequiresRoles("merchant")
@@ -92,6 +94,29 @@ public class MerchantController {
             return Result.success(map);
         } catch (Exception e) {
             LogUtils.getErrorLog("get merchant information", e);
+            return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
+        }
+    }
+
+    @DeleteMapping("/delete")
+    @ApiOperation("/删除商户")
+    @ApiImplicitParam(paramType = "query", name = "merchantId", value = "商户id", required = true, dataType = "int")
+    public Result deleteMerchant(HttpServletRequest request) {
+        Integer merchantId = Integer.valueOf(request.getParameter("merchantId"));
+        String username = (String) request.getAttribute("username");
+        try {
+            User user = userService.findByUserName(username);
+            Merchant merchant = merchantService.findByMerchantId(merchantId);
+            if (user.getRoleName().equals("admin") || merchant.getUsername().equals(username)) {
+                merchantService.deleteByMerchantId(merchantId);
+                LogUtils.getInfoLog(username, "delete merchant " + merchantId);
+                return Result.success();
+            } else {
+                LogUtils.getWarnLog(username, "has no access to delete merchant " + merchantId);
+                return Result.failed(1, "无权限");
+            }
+        } catch (Exception e) {
+            LogUtils.getErrorLog(username, "delete merchant " + merchantId.toString(), e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }

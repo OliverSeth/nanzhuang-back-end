@@ -14,4 +14,6 @@ public interface MerchantRepository extends JpaRepository<Merchant, Integer> {
     Merchant findByUniqueCode(String uniqueCode);
 
     Merchant findByMerchantId(Integer merchantId);
+
+    void deleteByMerchantId(Integer merchantId);
 }

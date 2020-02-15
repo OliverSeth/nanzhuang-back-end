@@ -25,6 +25,11 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
+    public void deleteByMerchantId(Integer merchantId) {
+        merchantRepository.deleteByMerchantId(merchantId);
+    }
+
+    @Override
     public Merchant findByMerchantId(Integer merchantId) {
         return merchantRepository.findByMerchantId(merchantId);
     }
