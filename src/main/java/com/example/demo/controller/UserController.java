@@ -141,6 +141,7 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "查询用户信息")
     @GetMapping("/info")
     public Result info(HttpServletRequest request) {
         String username = (String) request.getAttribute("username");
