@@ -27,6 +27,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product findByProductCode(String productCode) {
+        return productRepository.findByProductCode(productCode);
+    }
+
+    @Override
+    public Product findByProductName(String productName) {
+        return productRepository.findByProductName(productName);
+    }
+
+    @Override
     public List<Product> findByTypeLevel(String typeLevel) {
         return productRepository.findByTypeLevel(typeLevel);
     }
