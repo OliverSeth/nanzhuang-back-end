@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -85,6 +87,27 @@ public class ProductController {
             return Result.success(product);
         } catch (Exception e) {
             LogUtils.getErrorLog("find product by product id", e);
+            return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
+        }
+    }
+
+    @GetMapping("/get-list")
+    @ApiOperation("按类别等级获取产品列表")
+    @ApiImplicitParam(paramType = "query", name = "typeLevel", value = "类别等级")
+    public Result findByTypeLevel(String typeLevel) {
+        List<Product> productList;
+        try {
+            if (typeLevel.equals("")) {
+                productList = productService.findAll();
+            } else {
+                productList = productService.findAllByTypeLevel(typeLevel);
+            }
+            LogUtils.getInfoLog("", "get product list by type level.");
+            Map<String, List<Product>> map = new HashMap<>();
+            map.put("productList", productList);
+            return Result.success(map);
+        } catch (Exception e) {
+            LogUtils.getErrorLog("get product list by type level", e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }
