@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -70,6 +71,20 @@ public class ProductController {
             return Result.success(map);
         } catch (Exception e) {
             LogUtils.getErrorLog(username, "add a product", e);
+            return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
+        }
+    }
+
+    @GetMapping("/get")
+    @ApiImplicitParam(paramType = "query", name = "productId", value = "产品id", required = true, dataType = "int")
+    @ApiOperation("获取产品信息")
+    public Result findByProductId(Integer productId) {
+        try {
+            Product product = productService.findByProductId(productId);
+            LogUtils.getInfoLog("", "find product by product id.");
+            return Result.success(product);
+        } catch (Exception e) {
+            LogUtils.getErrorLog("find product by product id", e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }
