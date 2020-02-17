@@ -15,5 +15,5 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 
     Product findByProductName(String productName);
 
-    List<Product> findByTypeLevel(String typeLevel);
+    List<Product> findAllByTypeLevel(String typeLevel);
 }

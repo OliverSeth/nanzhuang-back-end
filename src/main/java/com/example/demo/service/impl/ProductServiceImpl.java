@@ -37,7 +37,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findByTypeLevel(String typeLevel) {
-        return productRepository.findByTypeLevel(typeLevel);
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> findAllByTypeLevel(String typeLevel) {
+        return productRepository.findAllByTypeLevel(typeLevel);
     }
 }

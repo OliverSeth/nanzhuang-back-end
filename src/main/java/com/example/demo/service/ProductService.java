@@ -14,7 +14,9 @@ public interface ProductService {
 
     Product findByProductName(String productName);
 
-    List<Product> findByTypeLevel(String typeLevel);
+    List<Product> findAllByTypeLevel(String typeLevel);
+
+    List<Product> findAll();
 
     void save(Product product);
 }
