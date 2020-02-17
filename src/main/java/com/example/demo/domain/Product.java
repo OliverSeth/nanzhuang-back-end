@@ -18,17 +18,14 @@ public class Product {
     @Column(unique = true)
     private String productName;
 
-    private String type;
-
     private String typeLevel;
 
     public Product() {
     }
 
-    public Product(String productCode, String productName, String type, String typeLevel) {
+    public Product(String productCode, String productName, String typeLevel) {
         this.productCode = productCode;
         this.productName = productName;
-        this.type = type;
         this.typeLevel = typeLevel;
     }
 
@@ -54,14 +51,6 @@ public class Product {
 
     public void setProductName(String productName) {
         this.productName = productName;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getTypeLevel() {
