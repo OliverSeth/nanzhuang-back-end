@@ -23,7 +23,7 @@ public class SaleRecordController {
     @Autowired
     SaleRecordService saleRecordService;
 
-    @GetMapping
+    @GetMapping("/all")
     @ApiOperation("分页获取所有销售记录")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", name = "pageNum", value = "页码", dataType = "int"),
