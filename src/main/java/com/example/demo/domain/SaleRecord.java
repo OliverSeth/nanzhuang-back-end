@@ -13,7 +13,9 @@ public class SaleRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer saleRecordId;
     private Integer recodeUsername;
-    private String period;         //期数
+    private String periodYear;         //期数
+    private String periodMonth;
+    private String perodDays;
     private String brand;          //品牌
     private String region;         //区域
     private Integer merchantId;
@@ -35,9 +37,14 @@ public class SaleRecord {
     private String note;
     private Date date;
 
-    public SaleRecord(Integer recodeUsername, String period, String brand, String region, Integer merchantId, String productDaleiCode, String productDaleiName, Integer productDaleiSales, String productZhongleiCode, String productZhongleiName, Integer productZhongleiSales, String representationNumber, Integer currentPrice, Integer currentSales, String a, String b, String c, String d, String e, String f, String note, Date date) {
+    public SaleRecord() {
+    }
+
+    public SaleRecord(Integer recodeUsername, String periodYear, String periodMonth, String perodDays, String brand, String region, Integer merchantId, String productDaleiCode, String productDaleiName, Integer productDaleiSales, String productZhongleiCode, String productZhongleiName, Integer productZhongleiSales, String representationNumber, Integer currentPrice, Integer currentSales, String a, String b, String c, String d, String e, String f, String note, Date date) {
         this.recodeUsername = recodeUsername;
-        this.period = period;
+        this.periodYear = periodYear;
+        this.periodMonth = periodMonth;
+        this.perodDays = perodDays;
         this.brand = brand;
         this.region = region;
         this.merchantId = merchantId;
@@ -60,9 +67,6 @@ public class SaleRecord {
         this.date = date;
     }
 
-    public SaleRecord() {
-    }
-
     public Integer getSaleRecordId() {
         return saleRecordId;
     }
@@ -79,12 +83,28 @@ public class SaleRecord {
         this.recodeUsername = recodeUsername;
     }
 
-    public String getPeriod() {
-        return period;
+    public String getPeriodYear() {
+        return periodYear;
     }
 
-    public void setPeriod(String period) {
-        this.period = period;
+    public void setPeriodYear(String periodYear) {
+        this.periodYear = periodYear;
+    }
+
+    public String getPeriodMonth() {
+        return periodMonth;
+    }
+
+    public void setPeriodMonth(String periodMonth) {
+        this.periodMonth = periodMonth;
+    }
+
+    public String getPerodDays() {
+        return perodDays;
+    }
+
+    public void setPerodDays(String perodDays) {
+        this.perodDays = perodDays;
     }
 
     public String getBrand() {
