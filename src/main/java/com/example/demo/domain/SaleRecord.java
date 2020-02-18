@@ -18,7 +18,7 @@ public class SaleRecord {
     private String perodDays;
     private String brand;          //品牌
     private String region;         //区域
-    private Integer merchantId;
+    private Integer merchantName;
     private String productDaleiCode;
     private String productDaleiName;
     private Integer productDaleiSales;  //大类销售额
@@ -40,14 +40,14 @@ public class SaleRecord {
     public SaleRecord() {
     }
 
-    public SaleRecord(Integer recodeUsername, String periodYear, String periodMonth, String perodDays, String brand, String region, Integer merchantId, String productDaleiCode, String productDaleiName, Integer productDaleiSales, String productZhongleiCode, String productZhongleiName, Integer productZhongleiSales, String representationNumber, Integer currentPrice, Integer currentSales, String a, String b, String c, String d, String e, String f, String note, Date date) {
+    public SaleRecord(Integer recodeUsername, String periodYear, String periodMonth, String perodDays, String brand, String region, Integer merchantName, String productDaleiCode, String productDaleiName, Integer productDaleiSales, String productZhongleiCode, String productZhongleiName, Integer productZhongleiSales, String representationNumber, Integer currentPrice, Integer currentSales, String a, String b, String c, String d, String e, String f, String note, Date date) {
         this.recodeUsername = recodeUsername;
         this.periodYear = periodYear;
         this.periodMonth = periodMonth;
         this.perodDays = perodDays;
         this.brand = brand;
         this.region = region;
-        this.merchantId = merchantId;
+        this.merchantName = merchantName;
         this.productDaleiCode = productDaleiCode;
         this.productDaleiName = productDaleiName;
         this.productDaleiSales = productDaleiSales;
@@ -123,12 +123,12 @@ public class SaleRecord {
         this.region = region;
     }
 
-    public Integer getMerchantId() {
-        return merchantId;
+    public Integer getMerchantName() {
+        return merchantName;
     }
 
-    public void setMerchantId(Integer merchantId) {
-        this.merchantId = merchantId;
+    public void setMerchantId(Integer merchantName) {
+        this.merchantName = merchantName;
     }
 
     public String getProductDaleiCode() {
