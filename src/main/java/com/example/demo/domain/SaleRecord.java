@@ -15,18 +15,21 @@ public class SaleRecord {
     private Integer recodeUsername;
     private String periodYear;         //期数
     private String periodMonth;
-    private String perodDays;
+    private String periodDays;
     private String brand;          //品牌
     private String region;         //区域
-    private Integer merchantName;
+    private String merchantName;
+    private String businessCode;
+    private String uniqueCode;
     private String productDaleiCode;
     private String productDaleiName;
-    private Integer productDaleiSales;  //大类销售额
+    private double productDaleiSales;  //大类销售额
     private String productZhongleiCode;
     private String productZhongleiName;
-    private Integer productZhongleiSales;
+    private double productZhongleiSalePrice;
+    private Integer productZhongleiSaleNumber;
     private String representationNumber;
-    private Integer currentPrice;
+    private double currentPrice;
     private Integer currentSales;
     private String A;
     private String B;
@@ -40,20 +43,23 @@ public class SaleRecord {
     public SaleRecord() {
     }
 
-    public SaleRecord(Integer recodeUsername, String periodYear, String periodMonth, String perodDays, String brand, String region, Integer merchantName, String productDaleiCode, String productDaleiName, Integer productDaleiSales, String productZhongleiCode, String productZhongleiName, Integer productZhongleiSales, String representationNumber, Integer currentPrice, Integer currentSales, String a, String b, String c, String d, String e, String f, String note, Date date) {
+    public SaleRecord(Integer recodeUsername, String periodYear, String periodMonth, String periodDays, String brand, String region, String merchantName, String businessCode, String uniqueCode, String productDaleiCode, String productDaleiName, double productDaleiSales, String productZhongleiCode, String productZhongleiName, double productZhongleiSalePrice, Integer productZhongleiSaleNumber, String representationNumber, double currentPrice, Integer currentSales, String a, String b, String c, String d, String e, String f, String note, Date date) {
         this.recodeUsername = recodeUsername;
         this.periodYear = periodYear;
         this.periodMonth = periodMonth;
-        this.perodDays = perodDays;
+        this.periodDays = periodDays;
         this.brand = brand;
         this.region = region;
         this.merchantName = merchantName;
+        this.businessCode = businessCode;
+        this.uniqueCode = uniqueCode;
         this.productDaleiCode = productDaleiCode;
         this.productDaleiName = productDaleiName;
         this.productDaleiSales = productDaleiSales;
         this.productZhongleiCode = productZhongleiCode;
         this.productZhongleiName = productZhongleiName;
-        this.productZhongleiSales = productZhongleiSales;
+        this.productZhongleiSalePrice = productZhongleiSalePrice;
+        this.productZhongleiSaleNumber = productZhongleiSaleNumber;
         this.representationNumber = representationNumber;
         this.currentPrice = currentPrice;
         this.currentSales = currentSales;
@@ -99,12 +105,12 @@ public class SaleRecord {
         this.periodMonth = periodMonth;
     }
 
-    public String getPerodDays() {
-        return perodDays;
+    public String getPeriodDays() {
+        return periodDays;
     }
 
-    public void setPerodDays(String perodDays) {
-        this.perodDays = perodDays;
+    public void setPeriodDays(String periodDays) {
+        this.periodDays = periodDays;
     }
 
     public String getBrand() {
@@ -123,12 +129,28 @@ public class SaleRecord {
         this.region = region;
     }
 
-    public Integer getMerchantName() {
+    public String getMerchantName() {
         return merchantName;
     }
 
-    public void setMerchantId(Integer merchantName) {
+    public void setMerchantName(String merchantName) {
         this.merchantName = merchantName;
+    }
+
+    public String getBusinessCode() {
+        return businessCode;
+    }
+
+    public void setBusinessCode(String businessCode) {
+        this.businessCode = businessCode;
+    }
+
+    public String getUniqueCode() {
+        return uniqueCode;
+    }
+
+    public void setUniqueCode(String uniqueCode) {
+        this.uniqueCode = uniqueCode;
     }
 
     public String getProductDaleiCode() {
@@ -147,11 +169,11 @@ public class SaleRecord {
         this.productDaleiName = productDaleiName;
     }
 
-    public Integer getProductDaleiSales() {
+    public double getProductDaleiSales() {
         return productDaleiSales;
     }
 
-    public void setProductDaleiSales(Integer productDaleiSales) {
+    public void setProductDaleiSales(double productDaleiSales) {
         this.productDaleiSales = productDaleiSales;
     }
 
@@ -171,12 +193,20 @@ public class SaleRecord {
         this.productZhongleiName = productZhongleiName;
     }
 
-    public Integer getProductZhongleiSales() {
-        return productZhongleiSales;
+    public double getProductZhongleiSalePrice() {
+        return productZhongleiSalePrice;
     }
 
-    public void setProductZhongleiSales(Integer productZhongleiSales) {
-        this.productZhongleiSales = productZhongleiSales;
+    public void setProductZhongleiSalePrice(double productZhongleiSalePrice) {
+        this.productZhongleiSalePrice = productZhongleiSalePrice;
+    }
+
+    public Integer getProductZhongleiSaleNumber() {
+        return productZhongleiSaleNumber;
+    }
+
+    public void setProductZhongleiSaleNumber(Integer productZhongleiSaleNumber) {
+        this.productZhongleiSaleNumber = productZhongleiSaleNumber;
     }
 
     public String getRepresentationNumber() {
@@ -187,11 +217,11 @@ public class SaleRecord {
         this.representationNumber = representationNumber;
     }
 
-    public Integer getCurrentPrice() {
+    public double getCurrentPrice() {
         return currentPrice;
     }
 
-    public void setCurrentPrice(Integer currentPrice) {
+    public void setCurrentPrice(double currentPrice) {
         this.currentPrice = currentPrice;
     }
 
