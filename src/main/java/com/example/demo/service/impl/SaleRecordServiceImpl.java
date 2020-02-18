@@ -22,7 +22,7 @@ public class SaleRecordServiceImpl implements SaleRecordService {
     SaleRecordRepository saleRecordRepository;
 
     @Override
-    public Page<SaleRecord> findBookNoCriteria(Integer page, Integer size) {
+    public Page<SaleRecord> findAll(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "saleRecordId");
         return saleRecordRepository.findAll(pageable);
     }
