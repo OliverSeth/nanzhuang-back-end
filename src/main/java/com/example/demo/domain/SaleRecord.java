@@ -38,12 +38,12 @@ public class SaleRecord {
     private String E;
     private String F;
     private String note;
-    private Date date;
+    private Long recordTimeStamp;
 
     public SaleRecord() {
     }
 
-    public SaleRecord(Integer recodeUsername, String periodYear, String periodMonth, String periodDays, String brand, String region, String merchantName, String businessCode, String uniqueCode, String productDaleiCode, String productDaleiName, double productDaleiSales, String productZhongleiCode, String productZhongleiName, double productZhongleiSalePrice, Integer productZhongleiSaleNumber, String representationNumber, double currentPrice, Integer currentSales, String a, String b, String c, String d, String e, String f, String note, Date date) {
+    public SaleRecord(Integer recodeUsername, String periodYear, String periodMonth, String periodDays, String brand, String region, String merchantName, String businessCode, String uniqueCode, String productDaleiCode, String productDaleiName, double productDaleiSales, String productZhongleiCode, String productZhongleiName, double productZhongleiSalePrice, Integer productZhongleiSaleNumber, String representationNumber, double currentPrice, Integer currentSales, String a, String b, String c, String d, String e, String f, String note, Long recordTimeStamp) {
         this.recodeUsername = recodeUsername;
         this.periodYear = periodYear;
         this.periodMonth = periodMonth;
@@ -70,7 +70,7 @@ public class SaleRecord {
         E = e;
         F = f;
         this.note = note;
-        this.date = date;
+        this.recordTimeStamp = recordTimeStamp;
     }
 
     public Integer getSaleRecordId() {
@@ -289,11 +289,11 @@ public class SaleRecord {
         this.note = note;
     }
 
-    public Date getDate() {
-        return date;
+    public Long getRecordTimeStamp() {
+        return recordTimeStamp;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setRecordTimeStamp(Long recordTimeStamp) {
+        this.recordTimeStamp = recordTimeStamp;
     }
 }
