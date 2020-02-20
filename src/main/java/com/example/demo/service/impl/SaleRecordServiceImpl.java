@@ -26,4 +26,13 @@ public class SaleRecordServiceImpl implements SaleRecordService {
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "saleRecordId");
         return saleRecordRepository.findAll(pageable);
     }
+
+    @Override
+    public List<SaleRecord> findSaleRecordByQuerys(String merchantName, String businessCode, String recodeUsername,
+                                                   String uniqueCode, String productDaleiName, String productZhongleiName,
+                                                   Long startTime, Long endTime, Integer startIndex, Integer endIndex,
+                                                   Pageable pageable) {
+        return saleRecordRepository.findSaleRecordByQuerys(merchantName, businessCode, recodeUsername, uniqueCode,
+                productDaleiName, productZhongleiName, startTime, endTime, startIndex, endIndex, pageable);
+    }
 }
