@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Oliver Seth on 2020/2/18 16:43
  */
 public interface SaleRecordService {
-    Page<SaleRecord> findAll(Integer page, Integer size);
+    List<SaleRecord> findAll(Integer page, Integer size);
 
     List<SaleRecord> findSaleRecordByQuerys(String merchantName, String businessCode, String recodeUsername,
                                             String uniqueCode, String productDaleiName, String productZhongleiName,

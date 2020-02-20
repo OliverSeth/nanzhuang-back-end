@@ -22,9 +22,9 @@ public class SaleRecordServiceImpl implements SaleRecordService {
     SaleRecordRepository saleRecordRepository;
 
     @Override
-    public Page<SaleRecord> findAll(Integer page, Integer size) {
+    public List<SaleRecord> findAll(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "saleRecordId");
-        return saleRecordRepository.findAll(pageable);
+        return saleRecordRepository.findAll(pageable).getContent();
     }
 
     @Override

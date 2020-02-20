@@ -44,9 +44,11 @@ public class SaleRecordController {
             pageSize = 20;
         }
         try {
-            Page<SaleRecord> page = saleRecordService.findAll(pageNum, pageSize);
+            List<SaleRecord> page = saleRecordService.findAll(pageNum, pageSize);
             LogUtils.getInfoLog("", "get all sale record");
-            return Result.success(page);
+            Map<String, List<SaleRecord>> map = new HashMap<>();
+            map.put("list", page);
+            return Result.success(map);
         } catch (Exception e) {
             LogUtils.getErrorLog("get all sale record", e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
