@@ -45,9 +45,11 @@ public class SaleRecordController {
         }
         try {
             List<SaleRecord> page = saleRecordService.findAll(pageNum, pageSize);
+            Long length = saleRecordService.countAll();
             LogUtils.getInfoLog("", "get all sale record");
-            Map<String, List<SaleRecord>> map = new HashMap<>();
+            Map<String, Object> map = new HashMap<>();
             map.put("list", page);
+            map.put("length", length);
             return Result.success(map);
         } catch (Exception e) {
             LogUtils.getErrorLog("get all sale record", e);
