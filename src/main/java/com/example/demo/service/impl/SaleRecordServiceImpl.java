@@ -30,9 +30,8 @@ public class SaleRecordServiceImpl implements SaleRecordService {
     @Override
     public List<SaleRecord> findSaleRecordByQuerys(String merchantName, String businessCode, String recodeUsername,
                                                    String uniqueCode, String productDaleiName, String productZhongleiName,
-                                                   Long startTime, Long endTime, Integer startIndex, Integer endIndex,
-                                                   Pageable pageable) {
+                                                   Long startTime, Long endTime, Pageable pageable) {
         return saleRecordRepository.findSaleRecordByQuerys(merchantName, businessCode, recodeUsername, uniqueCode,
-                productDaleiName, productZhongleiName, startTime, endTime, startIndex, endIndex, pageable);
+                productDaleiName, productZhongleiName, startTime, endTime, pageable);
     }
 }

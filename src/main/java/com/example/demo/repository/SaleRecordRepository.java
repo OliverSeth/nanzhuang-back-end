@@ -32,7 +32,5 @@ public interface SaleRecordRepository extends JpaRepository<SaleRecord, Integer>
                                             @Param("productZhongleiName") String productZhongleiName,
                                             @Param("startTime") Long startTime,
                                             @Param("endTime") Long endTime,
-                                            @Param("startIndex") Integer startIndex,
-                                            @Param("endIndex") Integer endIndex,
                                             Pageable pageable);
 }
