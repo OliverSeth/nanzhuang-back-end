@@ -14,8 +14,6 @@ import java.util.List;
  * Created by Oliver Seth on 2020/2/18 15:57
  */
 public interface SaleRecordRepository extends JpaRepository<SaleRecord, Integer> {
-    @Transactional
-    @Modifying
     @Query(value = "select s from SaleRecord s " +
             "where (s.merchantName = :merchantName or :merchantName is null )" +
             "and (s.businessCode = :businessCode or :businessCode is null )" +
