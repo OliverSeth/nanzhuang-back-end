@@ -34,4 +34,9 @@ public class SaleRecordServiceImpl implements SaleRecordService {
         return saleRecordRepository.findSaleRecordByQuerys(merchantName, businessCode, recodeUsername, uniqueCode,
                 productDaleiName, productZhongleiName, startTime, endTime, pageable);
     }
+
+    @Override
+    public Long countAll() {
+        return saleRecordRepository.count();
+    }
 }
