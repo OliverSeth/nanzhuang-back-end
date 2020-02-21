@@ -14,7 +14,7 @@ public interface MerchantService {
 
     Merchant findByMerchantId(Integer merchantId);
 
-    void save(Merchant merchant);
+    Merchant save(Merchant merchant);
 
     void deleteByMerchantId(Integer merchantId);
 }

@@ -68,8 +68,7 @@ public class MerchantController {
                 LogUtils.getWarnLog(username, "Unique code has been registered.");
                 return Result.failed(6, "Unique code has been registered.");
             }
-            merchantService.save(new Merchant(username, ownerName, businessCode, uniqueCode));
-            Merchant merchant = merchantService.findByUsername(username);
+            Merchant merchant = merchantService.save(new Merchant(username, ownerName, businessCode, uniqueCode));
             Map<String, String> map = new HashMap<>();
             map.put("merchantId", merchant.getMerchantId().toString());
             LogUtils.getInfoLog(username, "merchant registered successfully.");
