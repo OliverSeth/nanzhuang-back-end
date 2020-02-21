@@ -65,8 +65,7 @@ public class ProductController {
                 LogUtils.getWarnLog(username, "product name exists.");
                 return Result.failed(5, "Product name exists.");
             }
-            productService.save(new Product(productCode, productName, typeLevel));
-            Product product = productService.findByProductCode(productCode);
+            Product product = productService.save(new Product(productCode, productName, typeLevel));
             Map<String, String> map = new HashMap<>();
             map.put("productId", product.getProductId().toString());
             LogUtils.getInfoLog(username, "add a product " + product.getProductId().toString());

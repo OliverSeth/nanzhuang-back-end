@@ -18,5 +18,5 @@ public interface ProductService {
 
     List<Product> findAll();
 
-    void save(Product product);
+    Product save(Product product);
 }
