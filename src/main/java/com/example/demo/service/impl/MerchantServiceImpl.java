@@ -6,6 +6,8 @@ import com.example.demo.service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Oliver Seth on 2020/2/15 15:50
  */
@@ -42,5 +44,10 @@ public class MerchantServiceImpl implements MerchantService {
     @Override
     public Merchant findByUniqueCode(String uniqueCode) {
         return merchantRepository.findByUniqueCode(uniqueCode);
+    }
+
+    @Override
+    public List<Merchant> findAll() {
+        return merchantRepository.findAll();
     }
 }
