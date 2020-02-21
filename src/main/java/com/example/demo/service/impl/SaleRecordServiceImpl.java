@@ -39,4 +39,9 @@ public class SaleRecordServiceImpl implements SaleRecordService {
     public Long countAll() {
         return saleRecordRepository.count();
     }
+
+    @Override
+    public SaleRecord save(SaleRecord saleRecord) {
+        return saleRecordRepository.save(saleRecord);
+    }
 }

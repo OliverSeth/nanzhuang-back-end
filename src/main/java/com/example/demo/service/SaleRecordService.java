@@ -18,4 +18,6 @@ public interface SaleRecordService {
                                             Long startTime, Long endTime, Pageable pageable);
 
     Long countAll();
+
+    SaleRecord save(SaleRecord saleRecord);
 }
