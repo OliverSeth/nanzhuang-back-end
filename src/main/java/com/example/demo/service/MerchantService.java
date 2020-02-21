@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Merchant;
+import com.example.demo.dto.MerchantDTO;
 
 import java.util.List;
 
@@ -20,5 +21,5 @@ public interface MerchantService {
 
     void deleteByMerchantId(Integer merchantId);
 
-    List<Merchant> findAll();
+    List<MerchantDTO> findAllMerchantDTO();
 }

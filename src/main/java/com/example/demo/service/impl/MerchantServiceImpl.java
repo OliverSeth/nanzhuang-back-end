@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.domain.Merchant;
+import com.example.demo.dto.MerchantDTO;
 import com.example.demo.repository.MerchantRepository;
 import com.example.demo.service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public List<Merchant> findAll() {
-        return merchantRepository.findAll();
+    public List<MerchantDTO> findAllMerchantDTO() {
+        return merchantRepository.findAllMerchantDTO();
     }
 }
