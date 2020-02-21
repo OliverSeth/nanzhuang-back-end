@@ -96,7 +96,7 @@ public class ProductController {
     public Result findByTypeLevel(String typeLevel) {
         List<Product> productList;
         try {
-            if (typeLevel.equals("")) {
+            if (typeLevel == null || typeLevel.equals("")) {
                 productList = productService.findAll();
             } else {
                 productList = productService.findAllByTypeLevel(typeLevel);
