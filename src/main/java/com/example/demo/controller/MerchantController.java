@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Merchant;
 import com.example.demo.domain.User;
+import com.example.demo.dto.MerchantDTO;
 import com.example.demo.service.MerchantService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.ConstantCode;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -116,6 +118,22 @@ public class MerchantController {
             }
         } catch (Exception e) {
             LogUtils.getErrorLog(username, "delete merchant " + merchantId.toString(), e);
+            return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
+        }
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("获取所有商户信息")
+    public Result findAllMerchant() {
+        try {
+            List<MerchantDTO> list = merchantService.findAllMerchantDTO();
+            Map<String, Object> map = new HashMap<>();
+            map.put("list", list);
+            map.put("length", list.size());
+            LogUtils.getInfoLog("", "get all merchant information.");
+            return Result.success(map);
+        } catch (Exception e) {
+            LogUtils.getErrorLog("get all merchant information", e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }
