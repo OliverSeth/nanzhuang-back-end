@@ -45,4 +45,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAllByTypeLevel(String typeLevel) {
         return productRepository.findAllByTypeLevel(typeLevel);
     }
+
+    @Override
+    public void deleteByProductId(Integer productId) {
+        productRepository.deleteByProductId(productId);
+    }
 }

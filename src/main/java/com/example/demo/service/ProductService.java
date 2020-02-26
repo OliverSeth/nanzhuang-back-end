@@ -19,4 +19,6 @@ public interface ProductService {
     List<Product> findAll();
 
     Product save(Product product);
+
+    void deleteByProductId(Integer productId);
 }
