@@ -173,7 +173,8 @@ public class SaleRecordController {
         String note = request.getParameter("note") == null ? "" : request.getParameter("note");
         Long recordTimeStamp = System.currentTimeMillis() / 1000;
         try {
-            if (userService.findByUserName(username).getRoleName().equals("merchant") && !username.equals(merchantName)) {
+            if (userService.findByUserName(username).getRoleName().equals("merchant") &&
+                    !merchantService.findByUsername(username).getOwnerName().equals(merchantName)) {
                 LogUtils.getWarnLog(username, "has no permission to add");
                 return Result.failed(1, "No permission.");
             }
