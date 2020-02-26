@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.SaleRecord;
+import com.example.demo.domain.User;
+import com.example.demo.service.MerchantService;
 import com.example.demo.service.SaleRecordService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.ConstantCode;
@@ -16,10 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -34,6 +33,9 @@ import java.util.Map;
 public class SaleRecordController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    MerchantService merchantService;
 
     @Autowired
     SaleRecordService saleRecordService;
@@ -183,6 +185,34 @@ public class SaleRecordController {
             return Result.success(saleRecord);
         } catch (Exception e) {
             LogUtils.getErrorLog(username, "add sale record", e);
+            return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
+        }
+    }
+
+    @DeleteMapping("/delete")
+    @RequiresRoles(value = {"admin", "merchant"}, logical = Logical.OR)
+    @ApiOperation("删除销售记录")
+    public Result deleteSaleRecord(HttpServletRequest request, @RequestParam(value = "saleRecordIds[]") List<Integer> saleRecordIds) {
+        String username = (String) request.getAttribute("username");
+        String role = userService.findByUserName(username).getRoleName();
+        String uniqueCode = null;
+        if (role.equals("merchant")) {
+            uniqueCode = merchantService.findByUsername(username).getUniqueCode();
+        }
+        try {
+            for (Integer saleRecordId : saleRecordIds) {
+                if (role.equals("merchant")) {
+                    String uniqueCodeInRecord = saleRecordService.findBySaleRecordId(saleRecordId).getUniqueCode();
+                    if (!uniqueCodeInRecord.equals(uniqueCode)) {
+                        continue;
+                    }
+                }
+                saleRecordService.deleteBySaleRecordId(saleRecordId);
+            }
+            LogUtils.getInfoLog(username, "delete sale record");
+            return Result.success();
+        } catch (Exception e) {
+            LogUtils.getErrorLog(username, "delete sale record", e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }
