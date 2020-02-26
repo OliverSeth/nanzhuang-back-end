@@ -43,7 +43,12 @@ public class SaleRecord {
     public SaleRecord() {
     }
 
-    public SaleRecord(Integer recodeUsername, String periodYear, String periodMonth, String periodDays, String brand, String region, String merchantName, String businessCode, String uniqueCode, String productDaleiCode, String productDaleiName, double productDaleiSales, String productZhongleiCode, String productZhongleiName, double productZhongleiSalePrice, Integer productZhongleiSaleNumber, String representationNumber, double currentPrice, Integer currentSales, String a, String b, String c, String d, String e, String f, String note, Long recordTimeStamp) {
+    public SaleRecord(Integer recodeUsername, String periodYear, String periodMonth, String periodDays, String brand,
+                      String region, String merchantName, String businessCode, String uniqueCode, String productDaleiCode,
+                      String productDaleiName, double productDaleiSales, String productZhongleiCode,
+                      String productZhongleiName, double productZhongleiSalePrice, Integer productZhongleiSaleNumber,
+                      String representationNumber, double currentPrice, Integer currentSales, String a, String b,
+                      String c, String d, String e, String f, String note, Long recordTimeStamp) {
         this.recodeUsername = recodeUsername;
         this.periodYear = periodYear;
         this.periodMonth = periodMonth;
