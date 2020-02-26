@@ -20,4 +20,6 @@ public interface SaleRecordService {
     Long countAll();
 
     SaleRecord save(SaleRecord saleRecord);
+
+    SaleRecord findBySaleRecordId(Integer saleRecord);
 }

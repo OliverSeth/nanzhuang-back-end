@@ -31,4 +31,6 @@ public interface SaleRecordRepository extends JpaRepository<SaleRecord, Integer>
                                             @Param("startTime") Long startTime,
                                             @Param("endTime") Long endTime,
                                             Pageable pageable);
+
+    SaleRecord findBySaleRecordId(Integer saleRecordId);
 }

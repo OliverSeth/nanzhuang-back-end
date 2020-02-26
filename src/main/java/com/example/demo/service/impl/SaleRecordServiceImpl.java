@@ -44,4 +44,9 @@ public class SaleRecordServiceImpl implements SaleRecordService {
     public SaleRecord save(SaleRecord saleRecord) {
         return saleRecordRepository.save(saleRecord);
     }
+
+    @Override
+    public SaleRecord findBySaleRecordId(Integer saleRecord) {
+        return saleRecordRepository.findBySaleRecordId(saleRecord);
+    }
 }
