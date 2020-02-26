@@ -33,4 +33,6 @@ public interface SaleRecordRepository extends JpaRepository<SaleRecord, Integer>
                                             Pageable pageable);
 
     SaleRecord findBySaleRecordId(Integer saleRecordId);
+
+    void deleteBySaleRecordId(Integer saleRecordId);
 }

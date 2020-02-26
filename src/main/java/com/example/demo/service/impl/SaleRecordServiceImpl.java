@@ -46,7 +46,12 @@ public class SaleRecordServiceImpl implements SaleRecordService {
     }
 
     @Override
-    public SaleRecord findBySaleRecordId(Integer saleRecord) {
-        return saleRecordRepository.findBySaleRecordId(saleRecord);
+    public SaleRecord findBySaleRecordId(Integer saleRecordId) {
+        return saleRecordRepository.findBySaleRecordId(saleRecordId);
+    }
+
+    @Override
+    public void deleteBySaleRecordId(Integer saleRecordId) {
+        saleRecordRepository.deleteBySaleRecordId(saleRecordId);
     }
 }

@@ -21,5 +21,7 @@ public interface SaleRecordService {
 
     SaleRecord save(SaleRecord saleRecord);
 
-    SaleRecord findBySaleRecordId(Integer saleRecord);
+    SaleRecord findBySaleRecordId(Integer saleRecordId);
+
+    void deleteBySaleRecordId(Integer saleRecordId);
 }
