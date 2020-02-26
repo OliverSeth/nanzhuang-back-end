@@ -12,7 +12,7 @@ public class SaleRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer saleRecordId;
-    private Integer recodeUsername;
+    private String recodeUsername;
     private String periodYear;         //期数
     private String periodMonth;
     private String periodDays;
@@ -43,7 +43,7 @@ public class SaleRecord {
     public SaleRecord() {
     }
 
-    public SaleRecord(Integer recodeUsername, String periodYear, String periodMonth, String periodDays, String brand,
+    public SaleRecord(String recodeUsername, String periodYear, String periodMonth, String periodDays, String brand,
                       String region, String merchantName, String businessCode, String uniqueCode, String productDaleiCode,
                       String productDaleiName, double productDaleiSales, String productZhongleiCode,
                       String productZhongleiName, double productZhongleiSalePrice, Integer productZhongleiSaleNumber,
@@ -86,11 +86,11 @@ public class SaleRecord {
         this.saleRecordId = saleRecordId;
     }
 
-    public Integer getRecodeUsername() {
+    public String getRecodeUsername() {
         return recodeUsername;
     }
 
-    public void setRecodeUsername(Integer recodeUsername) {
+    public void setRecodeUsername(String recodeUsername) {
         this.recodeUsername = recodeUsername;
     }
 
