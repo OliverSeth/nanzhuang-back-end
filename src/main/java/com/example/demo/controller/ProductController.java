@@ -11,10 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -107,6 +104,22 @@ public class ProductController {
             return Result.success(map);
         } catch (Exception e) {
             LogUtils.getErrorLog("get product list by type level", e);
+            return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
+        }
+    }
+
+    @DeleteMapping("delete")
+    @RequiresRoles(value = {"admin", "merchant"}, logical = Logical.OR)
+    @ApiOperation("删除产品")
+    @ApiImplicitParam(paramType = "query", name = "productId", value = "产品id", required = true)
+    public Result deleteProduct(HttpServletRequest request, Integer productId) {
+        String username = (String) request.getAttribute("username");
+        try {
+            productService.deleteByProductId(productId);
+            LogUtils.getInfoLog(username, "delete product " + productId.toString());
+            return Result.success();
+        } catch (Exception e) {
+            LogUtils.getErrorLog(username, "delete product " + productId.toString(), e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }
