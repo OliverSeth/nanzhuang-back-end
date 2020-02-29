@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.demo.domain.User;
 import com.example.demo.service.UserService;
 import com.example.demo.realm.JWTUtils;
@@ -40,12 +41,10 @@ public class UserController {
     @ResponseBody
     @PostMapping("/register")
     @ApiOperation(value = "注册")
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query", name = "userName", value = "用户名", required = true),
-            @ApiImplicitParam(paramType = "query", name = "password", value = "密码", required = true),
-            @ApiImplicitParam(paramType = "query", name = "role", value = "角色", required = true)
-    })
-    public Result register(String userName, String password, String role) {
+    public Result register(@RequestBody JSONObject jsonObject) {
+        String userName = jsonObject.getString("userName");
+        String password = jsonObject.getString("password");
+        String role = jsonObject.getString("role");
         String salt = userName + System.currentTimeMillis();
         if (userName == null || userName.equals("")) {
             LogUtils.getWarnLog("UserName is empty.");
@@ -73,13 +72,11 @@ public class UserController {
     }
 
     @ResponseBody
-    @PostMapping("/login")
+    @PostMapping(value = "/login")
     @ApiOperation(value = "登录")
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query", name = "userName", value = "用户名", required = true),
-            @ApiImplicitParam(paramType = "query", name = "password", value = "密码", required = true)
-    })
-    public Result login(String userName, String password) {
+    public Result login(@RequestBody JSONObject jsonObject) {
+        String userName = jsonObject.getString("userName");
+        String password = jsonObject.getString("password");
         if (userName == null || userName.equals("")) {
             LogUtils.getWarnLog("UserName is empty.");
             return Result.failed(1, "UserName is empty.");
@@ -110,19 +107,15 @@ public class UserController {
 
     @PostMapping("/change-password")
     @ApiOperation(value = "修改密码")
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query", name = "oldPassword", value = "旧密码", required = true),
-            @ApiImplicitParam(paramType = "query", name = "newPassword", value = "新密码", required = true)
-    })
-    public Result changePassword(HttpServletRequest request) {
+    public Result changePassword(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
         String username = (String) request.getAttribute("username");
         try {
             User user = userService.findByUserName(username);
             Integer id = user.getUserId();
             String password = user.getPassword();
             String salt = user.getSalt();
-            String oldPass = request.getParameter("oldPassword");
-            String newPass = request.getParameter("newPassword");
+            String oldPass = jsonObject.getString("oldPassword");
+            String newPass = jsonObject.getString("newPassword");
             if (password.equals((new Md5Hash(oldPass, salt, ConstantCode.HASH_ITERATION)).toString())) {
                 salt = username + System.currentTimeMillis();
                 password = (new Md5Hash(newPass, salt, ConstantCode.HASH_ITERATION)).toString();
