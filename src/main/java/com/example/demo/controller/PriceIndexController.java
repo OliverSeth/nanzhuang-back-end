@@ -9,6 +9,9 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,6 +52,42 @@ public class PriceIndexController {
             return Result.success(map);
         } catch (Exception e) {
             LogUtils.getErrorLog("get all price index", e);
+            return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
+        }
+    }
+
+    @GetMapping("query")
+    @ApiOperation("按条件查询价格指数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "code", value = "编码"),
+            @ApiImplicitParam(paramType = "query", name = "brand", value = "品牌"),
+            @ApiImplicitParam(paramType = "query", name = "region", value = "地区"),
+            @ApiImplicitParam(paramType = "query", name = "pageNum", value = "页码", dataType = "int"),
+            @ApiImplicitParam(paramType = "query", name = "pageSize", value = "每页数量", dataType = "int"),
+    })
+    public Result findPriceIndexByQuerys(String code, String brand, String region, Integer pageNum, Integer pageSize) {
+        if (pageNum == null) {
+            pageNum = 1;
+        }
+        if (pageSize == null) {
+            pageSize = 20;
+        }
+        if (pageNum <= 0 || pageSize <= 0) {
+            LogUtils.getWarnLog("Invalid pageNum or pageSize.");
+            return Result.failed(1, "Invalid pageNum or pageSize.");
+        }
+        code = code.trim().isEmpty() ? null : code;
+        brand = brand.trim().isEmpty() ? null : brand;
+        region = region.trim().isEmpty() ? null : region;
+        Pageable pageable = PageRequest.of(pageNum, pageSize, Sort.Direction.DESC, "indexId");
+        try {
+            List<PriceIndex> list = priceIndexService.findPriceIndexByQuerys(code, brand, region, pageable);
+            Map<String, List<PriceIndex>> map = new HashMap<>();
+            map.put("list", list);
+            LogUtils.getInfoLog("", "find price index by query");
+            return Result.success(map);
+        } catch (Exception e) {
+            LogUtils.getErrorLog("find price index by query", e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }
