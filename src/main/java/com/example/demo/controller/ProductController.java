@@ -64,7 +64,7 @@ public class ProductController {
                 LogUtils.getWarnLog(username, "product name exists.");
                 return Result.failed(5, "Product name exists.");
             }
-            Product product = new Product();
+            Product product;
             if (typeLevel.equals("Big")) {
                 product = productService.save(new Product(productCode, productName, typeLevel));
             } else if (typeLevel.equals("Middle")) {
