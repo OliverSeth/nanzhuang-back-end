@@ -20,6 +20,8 @@ public class Product {
 
     private String typeLevel;
 
+    private Integer daleiId;
+
     public Product() {
     }
 
@@ -27,6 +29,13 @@ public class Product {
         this.productCode = productCode;
         this.productName = productName;
         this.typeLevel = typeLevel;
+    }
+
+    public Product(String productCode, String productName, String typeLevel, Integer daleiId) {
+        this.productCode = productCode;
+        this.productName = productName;
+        this.typeLevel = typeLevel;
+        this.daleiId = daleiId;
     }
 
     public Integer getProductId() {
@@ -59,5 +68,13 @@ public class Product {
 
     public void setTypeLevel(String typeLevel) {
         this.typeLevel = typeLevel;
+    }
+
+    public Integer getDaleiId() {
+        return daleiId;
+    }
+
+    public void setDaleiId(Integer daleiId) {
+        this.daleiId = daleiId;
     }
 }
