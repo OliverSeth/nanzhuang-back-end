@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Oliver Seth on 2020/3/4 19:57
  */
 public interface PriceIndexService {
-    List<PriceIndex> findPriceIndexByQuerys(String code, String brand, String region, Pageable pageable);
+    List<PriceIndex> findPriceIndexByQuerys(String code, String brand, String region, Integer daleiId, Integer zhongleiId, Pageable pageable);
 
     Long countAll();
 

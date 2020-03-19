@@ -15,9 +15,13 @@ public interface PriceIndexRepository extends JpaRepository<PriceIndex, Integer>
     @Query(value = "select p from PriceIndex p " +
             "where (p.code = :code or :code is null ) " +
             "and (p.brand = :brand or :brand is null ) " +
-            "and (p.region = :region or :region is null )")
+            "and (p.region = :region or :region is null ) " +
+            "and (p.daleiId = :daleiId or :daleiId is null ) " +
+            "and (p.zhongleiId = :zhongleiId or :zhongleiId is null )")
     List<PriceIndex> findPriceIndexByQuerys(@Param("code") String code,
                                             @Param("brand") String brand,
                                             @Param("region") String region,
+                                            @Param("daleiId") Integer daleiId,
+                                            @Param("zhongleiId") Integer zhongleiId,
                                             Pageable pageable);
 }
