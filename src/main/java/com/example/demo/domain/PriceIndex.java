@@ -17,12 +17,30 @@ public class PriceIndex {
     private String code;
     private String brand;
     private String region;
+    private Integer daleiId;
+    private Integer zhongleiId;
     private String fixedBaseIndex;          //定基指数
     private String fixedBaseAdjustIndex;
     private String yearOnYearIndex;         //同比指数
     private String yearOnYearAdjustIndex;
     private String chainIndex;              //环比指数
     private String chainAdjustIndex;
+
+    public Integer getDaleiId() {
+        return daleiId;
+    }
+
+    public void setDaleiId(Integer daleiId) {
+        this.daleiId = daleiId;
+    }
+
+    public Integer getZhongleiId() {
+        return zhongleiId;
+    }
+
+    public void setZhongleiId(Integer zhongleiId) {
+        this.zhongleiId = zhongleiId;
+    }
 
     public Integer getIndexId() {
         return indexId;
