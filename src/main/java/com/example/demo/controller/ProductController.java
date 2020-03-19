@@ -35,12 +35,14 @@ public class ProductController {
             @ApiImplicitParam(paramType = "query", name = "productCode", value = "产品代码", required = true),
             @ApiImplicitParam(paramType = "query", name = "productName", value = "产品名称", required = true),
             @ApiImplicitParam(paramType = "query", name = "typeLevel", value = "类别等级", required = true),
+            @ApiImplicitParam(paramType = "query", name = "daleiId", value = "产品大类id"),
     })
     public Result addProduct(HttpServletRequest request) {
         String username = (String) request.getAttribute("username");
         String productCode = request.getParameter("productCode");
         String productName = request.getParameter("productName");
         String typeLevel = request.getParameter("typeLevel");
+        Integer daleiId = Integer.parseInt(request.getParameter("daleiId"));
         if (productCode == null || productCode.equals("")) {
             LogUtils.getWarnLog(username, "submit empty product code when add product.");
             return Result.failed(1, "Empty product code.");
@@ -62,7 +64,24 @@ public class ProductController {
                 LogUtils.getWarnLog(username, "product name exists.");
                 return Result.failed(5, "Product name exists.");
             }
-            Product product = productService.save(new Product(productCode, productName, typeLevel));
+            Product product = new Product();
+            if (typeLevel.equals("Big")) {
+                product = productService.save(new Product(productCode, productName, typeLevel));
+            } else if (typeLevel.equals("Middle")) {
+                Product bigProduct = productService.findByProductId(daleiId);
+                if (bigProduct == null) {
+                    LogUtils.getWarnLog(username, "Dalei id not exists");
+                    return Result.failed(6, "Dalei id not exists.");
+                } else if (!bigProduct.getTypeLevel().equals("Big")) {
+                    LogUtils.getWarnLog(username, "Dalei id is invalid");
+                    return Result.failed(7, "Dalei id is invalid");
+                } else {
+                    product = productService.save(new Product(productCode, productName, typeLevel, daleiId));
+                }
+            } else {
+                LogUtils.getWarnLog(username, "add product but type level is" + typeLevel);
+                return Result.failed(8, "Type level must be Big or Middle.");
+            }
             Map<String, String> map = new HashMap<>();
             map.put("productId", product.getProductId().toString());
             LogUtils.getInfoLog(username, "add a product " + product.getProductId().toString());
