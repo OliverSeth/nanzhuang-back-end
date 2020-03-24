@@ -7,6 +7,7 @@ import com.example.demo.service.SaleRecordService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.ConstantCode;
 import com.example.demo.utils.LogUtils;
+import com.example.demo.utils.PeriodUtils;
 import com.example.demo.utils.Result;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -152,6 +153,18 @@ public class SaleRecordController {
         String periodYear = request.getParameter("periodYear");
         String periodMonth = request.getParameter("periodMonth");
         String periodDays = request.getParameter("periodDays");
+        if (!PeriodUtils.validYear(periodYear)) {
+            LogUtils.getWarnLog(username, "invalid periodYear when add sale record");
+            return Result.failed(1, "Invalid periodYear.");
+        }
+        if (!PeriodUtils.validMonth(periodMonth)) {
+            LogUtils.getWarnLog(username, "invalid periodMonth when add sale record");
+            return Result.failed(2, "Invalid periodMonth.");
+        }
+        if (!PeriodUtils.validDay(periodDays)) {
+            LogUtils.getWarnLog(username, "invalid periodDays when add sale record");
+            return Result.failed(3, "Invalid periodDays.");
+        }
         String brand = request.getParameter("brand");
         String region = request.getParameter("region");
         String productDaleiCode = request.getParameter("productDaleiCode");
