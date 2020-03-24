@@ -62,12 +62,16 @@ public class PriceIndexController {
             @ApiImplicitParam(paramType = "query", name = "code", value = "编码"),
             @ApiImplicitParam(paramType = "query", name = "brand", value = "品牌"),
             @ApiImplicitParam(paramType = "query", name = "region", value = "地区"),
+            @ApiImplicitParam(paramType = "query", name = "periodYear", value = "年"),
+            @ApiImplicitParam(paramType = "query", name = "periodMonth", value = "月"),
+            @ApiImplicitParam(paramType = "query", name = "periodDays", value = "旬"),
             @ApiImplicitParam(paramType = "query", name = "daleiId", value = "产品大类id", dataType = "int"),
             @ApiImplicitParam(paramType = "query", name = "zhongleiId", value = "产品中类id", dataType = "int"),
             @ApiImplicitParam(paramType = "query", name = "pageNum", value = "页码", dataType = "int"),
             @ApiImplicitParam(paramType = "query", name = "pageSize", value = "每页数量", dataType = "int"),
     })
-    public Result findPriceIndexByQuerys(String code, String brand, String region, Integer daleiId, Integer zhongleiId, Integer pageNum, Integer pageSize) {
+    public Result findPriceIndexByQuerys(String code, String brand, String region, String periodYear, String periodMonth,
+                                         String periodDays, Integer daleiId, Integer zhongleiId, Integer pageNum, Integer pageSize) {
         if (pageNum == null) {
             pageNum = 1;
         }
@@ -81,9 +85,13 @@ public class PriceIndexController {
         code = code.trim().isEmpty() ? null : code;
         brand = brand.trim().isEmpty() ? null : brand;
         region = region.trim().isEmpty() ? null : region;
+        periodYear = periodYear.trim().isEmpty() ? null : periodYear;
+        periodMonth = periodMonth.trim().isEmpty() ? null : periodMonth;
+        periodDays = periodDays.trim().isEmpty() ? null : periodDays;
         Pageable pageable = PageRequest.of(pageNum, pageSize, Sort.Direction.DESC, "indexId");
         try {
-            List<PriceIndex> list = priceIndexService.findPriceIndexByQuerys(code, brand, region, daleiId, zhongleiId, pageable);
+            List<PriceIndex> list = priceIndexService.findPriceIndexByQuerys(code, brand, region, periodYear, periodMonth,
+                    periodDays, daleiId, zhongleiId, pageable);
             Map<String, List<PriceIndex>> map = new HashMap<>();
             map.put("list", list);
             LogUtils.getInfoLog("", "find price index by query");
