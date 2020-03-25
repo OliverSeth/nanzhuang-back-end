@@ -30,4 +30,24 @@ public class PeriodUtils {
         }
         return false;
     }
+
+    public static String lastYear(String period) {
+        return (Integer.parseInt(period.substring(0, 4)) - 1) + period.substring(4);
+    }
+
+    public static String lastMonth(String period) {
+        if (period.substring(4, 6).equals("01")) {
+            return lastYear(period).substring(0, 4) + "12" + period.substring(6);
+        } else {
+            return period.substring(0, 4) + (Integer.parseInt(period.substring(4, 6)) - 1) + period.substring(6);
+        }
+    }
+
+    public static String lastDays(String period) {
+        if (period.substring(6).equals("01")) {
+            return lastMonth(period).substring(0, 6) + "03";
+        } else {
+            return period.substring(0, 6) + (Integer.parseInt(period.substring(6, 8)) - 1);
+        }
+    }
 }
