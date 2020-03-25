@@ -83,7 +83,6 @@ public class MerchantController {
 
     @GetMapping("/info")
     @ApiOperation("商户信息")
-    @ApiImplicitParam(paramType = "query", name = "merchantId", value = "商户id", required = true, dataType = "int")
     public Result merchantInfo(HttpServletRequest request) {
         String username = (String) request.getAttribute("username");
         try {
