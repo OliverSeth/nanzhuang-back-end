@@ -84,17 +84,14 @@ public class MerchantController {
     @GetMapping("/info")
     @ApiOperation("商户信息")
     @ApiImplicitParam(paramType = "query", name = "merchantId", value = "商户id", required = true, dataType = "int")
-    public Result merchantInfo(Integer merchantId) {
+    public Result merchantInfo(HttpServletRequest request) {
+        String username = (String) request.getAttribute("username");
         try {
-            Merchant merchant = merchantService.findByMerchantId(merchantId);
-            Map<String, String> map = new HashMap<>();
-            map.put("ownerName", merchant.getOwnerName());
-            map.put("businessCode", merchant.getBusinessCode());
-            map.put("uniqueCode", merchant.getUniqueCode());
-            LogUtils.getInfoLog("", "get information for merchant " + merchant.getOwnerName());
-            return Result.success(map);
+            Merchant merchant = merchantService.findByUsername(username);
+            LogUtils.getInfoLog(username, "get information for merchant " + merchant.getOwnerName());
+            return Result.success(merchant);
         } catch (Exception e) {
-            LogUtils.getErrorLog("get merchant information", e);
+            LogUtils.getErrorLog(username, "get merchant information", e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }
