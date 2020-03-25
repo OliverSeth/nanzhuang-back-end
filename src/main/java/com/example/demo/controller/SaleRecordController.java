@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.Product;
 import com.example.demo.domain.SaleRecord;
 import com.example.demo.domain.User;
 import com.example.demo.service.MerchantService;
+import com.example.demo.service.ProductService;
 import com.example.demo.service.SaleRecordService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.ConstantCode;
@@ -37,6 +39,9 @@ public class SaleRecordController {
 
     @Autowired
     MerchantService merchantService;
+
+    @Autowired
+    ProductService productService;
 
     @Autowired
     SaleRecordService saleRecordService;
@@ -186,10 +191,32 @@ public class SaleRecordController {
         String note = request.getParameter("note") == null ? "" : request.getParameter("note");
         Long recordTimeStamp = System.currentTimeMillis() / 1000;
         try {
+            Product bigProduct = productService.findByProductCode(productDaleiCode);
+            if (bigProduct == null) {
+                LogUtils.getWarnLog(username, "productDaleiCode not exist when add sale record");
+                return Result.failed(4, "ProductDaleiCode not exist.");
+            }
+            if (!bigProduct.getProductName().equals(productDaleiName)) {
+                LogUtils.getWarnLog(username, "productDaleiCode and productDaleiName not match when add sale record");
+                return Result.failed(5, "ProductDaleiCode and productDaleiName not match.");
+            }
+            Product middleProduct = productService.findByProductCode(productZhongleiCode);
+            if (middleProduct == null) {
+                LogUtils.getWarnLog(username, "productZhongleiCode not exist when add sale record");
+                return Result.failed(6, "ProductZhongleiCode not exist.");
+            }
+            if (!middleProduct.getProductName().equals(productZhongleiName)) {
+                LogUtils.getWarnLog(username, "productZhongleiCode and productZhongleiName not match when add sale record");
+                return Result.failed(7, "ProductZhongleiCode and productZhongleiName not match.");
+            }
+            if (!middleProduct.getDaleiId().equals(bigProduct.getProductId())) {
+                LogUtils.getWarnLog(username, "productZhonglei not belong to productDalei when add sale record");
+                return Result.failed(8, "ProductZhonglei not belong to productDalei.");
+            }
             if (userService.findByUserName(username).getRoleName().equals("merchant") &&
                     !merchantService.findByUsername(username).getOwnerName().equals(merchantName)) {
                 LogUtils.getWarnLog(username, "has no permission to add");
-                return Result.failed(1, "No permission.");
+                return Result.failed(9, "No permission.");
             }
             SaleRecord saleRecord = saleRecordService.save(new SaleRecord(username, periodYear, periodMonth, periodDays,
                     brand, region, merchantName, businessCode, uniqueCode, productDaleiCode, productDaleiName,
