@@ -89,7 +89,7 @@ public class MerchantController {
             Merchant merchant = merchantService.findByUsername(username);
             if (merchant == null) {
                 LogUtils.getWarnLog(username, "merchant not exist");
-                return Result.failed(1, "Merchant not exist.");
+                return Result.success(new Merchant());
             }
             LogUtils.getInfoLog(username, "get information for merchant " + merchant.getOwnerName());
             return Result.success(merchant);
