@@ -21,15 +21,15 @@ public interface SaleRecordRepository extends JpaRepository<SaleRecord, Integer>
             "and (s.uniqueCode = :uniqueCode or :uniqueCode is null )" +
             "and (s.productDaleiName = :productDaleiName or :productDaleiName is null )" +
             "and (s.productZhongleiName = :productZhongleiName or :productZhongleiName is null )" +
-            "and ((s.recordTimeStamp between :startTime and :endTime ) or (:startTime is null ) or (:endTime is null ))")
+            "and ((s.period between :startTime and :endTime ) or (:startTime is null ) or (:endTime is null ))")
     List<SaleRecord> findSaleRecordByQuerys(@Param("merchantName") String merchantName,
                                             @Param("businessCode") String businessCode,
                                             @Param("recodeUsername") String recodeUsername,
                                             @Param("uniqueCode") String uniqueCode,
                                             @Param("productDaleiName") String productDaleiName,
                                             @Param("productZhongleiName") String productZhongleiName,
-                                            @Param("startTime") Long startTime,
-                                            @Param("endTime") Long endTime,
+                                            @Param("startTime") Integer startTime,
+                                            @Param("endTime") Integer endTime,
                                             Pageable pageable);
 
     SaleRecord findBySaleRecordId(Integer saleRecordId);

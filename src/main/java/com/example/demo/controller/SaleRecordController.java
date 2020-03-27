@@ -82,14 +82,14 @@ public class SaleRecordController {
             @ApiImplicitParam(paramType = "query", name = "uniqueCode", value = "唯一编码"),
             @ApiImplicitParam(paramType = "query", name = "productDaleiName", value = "产品大类"),
             @ApiImplicitParam(paramType = "query", name = "productZhongleiName", value = "产品中类"),
-            @ApiImplicitParam(paramType = "query", name = "startTime", value = "开始时间", dataType = "long"),
-            @ApiImplicitParam(paramType = "query", name = "endTime", value = "结束时间", dataType = "long"),
+            @ApiImplicitParam(paramType = "query", name = "startTime", value = "开始时间", dataType = "int"),
+            @ApiImplicitParam(paramType = "query", name = "endTime", value = "结束时间", dataType = "int"),
             @ApiImplicitParam(paramType = "query", name = "pageNum", value = "页码", dataType = "int"),
             @ApiImplicitParam(paramType = "query", name = "pageSize", value = "每页数量", dataType = "int"),
     })
     public Result findSaleRecordByQuerys(String merchantName, String businessCode, String recodeUsername,
                                          String uniqueCode, String productDaleiName, String productZhongleiName,
-                                         Long startTime, Long endTime, Integer pageNum, Integer pageSize) {
+                                         Integer startTime, Integer endTime, Integer pageNum, Integer pageSize) {
         if (pageNum == null) {
             pageNum = 1;
         }
@@ -106,7 +106,7 @@ public class SaleRecordController {
         uniqueCode = uniqueCode.trim().isEmpty() ? null : uniqueCode;
         productDaleiName = productDaleiName.trim().isEmpty() ? null : productDaleiName;
         productZhongleiName = productZhongleiName.trim().isEmpty() ? null : productZhongleiName;
-        Pageable pageable = PageRequest.of(pageNum, pageSize, Sort.Direction.DESC, "recordTimeStamp");
+        Pageable pageable = PageRequest.of(pageNum, pageSize, Sort.Direction.DESC, "period");
         try {
             List<SaleRecord> list = saleRecordService.findSaleRecordByQuerys(merchantName, businessCode, recodeUsername,
                     uniqueCode, productDaleiName, productZhongleiName, startTime, endTime, pageable);
@@ -218,8 +218,9 @@ public class SaleRecordController {
                 LogUtils.getWarnLog(username, "has no permission to add");
                 return Result.failed(9, "No permission.");
             }
+            Integer period = Integer.parseInt(periodYear + periodMonth + periodDays);
             SaleRecord saleRecord = saleRecordService.save(new SaleRecord(username, periodYear, periodMonth, periodDays,
-                    brand, region, merchantName, businessCode, uniqueCode, productDaleiCode, productDaleiName,
+                    period, brand, region, merchantName, businessCode, uniqueCode, productDaleiCode, productDaleiName,
                     productDaleiSales, productZhongleiCode, productZhongleiName, productZhongleiSalePrice,
                     productZhongleiSaleNumber, representationNumber, currentPrice, currentSales, A, B, C, D, E, F, note,
                     recordTimeStamp));

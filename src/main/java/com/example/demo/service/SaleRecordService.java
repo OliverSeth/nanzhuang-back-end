@@ -15,7 +15,7 @@ public interface SaleRecordService {
 
     List<SaleRecord> findSaleRecordByQuerys(String merchantName, String businessCode, String recodeUsername,
                                             String uniqueCode, String productDaleiName, String productZhongleiName,
-                                            Long startTime, Long endTime, Pageable pageable);
+                                            Integer startTime, Integer endTime, Pageable pageable);
 
     Long countAll();
 
