@@ -16,6 +16,7 @@ public class SaleRecord {
     private String periodYear;         //期数
     private String periodMonth;
     private String periodDays;
+    private Integer period;
     private String brand;          //品牌
     private String region;         //区域
     private String merchantName;
@@ -43,16 +44,12 @@ public class SaleRecord {
     public SaleRecord() {
     }
 
-    public SaleRecord(String recodeUsername, String periodYear, String periodMonth, String periodDays, String brand,
-                      String region, String merchantName, String businessCode, String uniqueCode, String productDaleiCode,
-                      String productDaleiName, double productDaleiSales, String productZhongleiCode,
-                      String productZhongleiName, double productZhongleiSalePrice, Integer productZhongleiSaleNumber,
-                      String representationNumber, double currentPrice, Integer currentSales, String a, String b,
-                      String c, String d, String e, String f, String note, Long recordTimeStamp) {
+    public SaleRecord(String recodeUsername, String periodYear, String periodMonth, String periodDays, Integer period, String brand, String region, String merchantName, String businessCode, String uniqueCode, String productDaleiCode, String productDaleiName, double productDaleiSales, String productZhongleiCode, String productZhongleiName, double productZhongleiSalePrice, Integer productZhongleiSaleNumber, String representationNumber, double currentPrice, Integer currentSales, String a, String b, String c, String d, String e, String f, String note, Long recordTimeStamp) {
         this.recodeUsername = recodeUsername;
         this.periodYear = periodYear;
         this.periodMonth = periodMonth;
         this.periodDays = periodDays;
+        this.period = period;
         this.brand = brand;
         this.region = region;
         this.merchantName = merchantName;
@@ -76,6 +73,14 @@ public class SaleRecord {
         F = f;
         this.note = note;
         this.recordTimeStamp = recordTimeStamp;
+    }
+
+    public Integer getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Integer period) {
+        this.period = period;
     }
 
     public Integer getSaleRecordId() {
