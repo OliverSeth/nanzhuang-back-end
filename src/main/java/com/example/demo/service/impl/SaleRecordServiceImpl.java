@@ -54,4 +54,34 @@ public class SaleRecordServiceImpl implements SaleRecordService {
     public void deleteBySaleRecordId(Integer saleRecordId) {
         saleRecordRepository.deleteBySaleRecordId(saleRecordId);
     }
+
+    @Override
+    public List<SaleRecord> findByPeriod(Integer period) {
+        return saleRecordRepository.findByPeriod(period);
+    }
+
+    @Override
+    public List<SaleRecord> findByPeriodAndBrandAndRegion(Integer period, String brand, String region) {
+        return saleRecordRepository.findByPeriodAndBrandAndRegion(period, brand, region);
+    }
+
+    @Override
+    public List<SaleRecord> findByPeriodAndProductDaleiName(Integer period, String productDaleiName) {
+        return saleRecordRepository.findByPeriodAndProductDaleiName(period, productDaleiName);
+    }
+
+    @Override
+    public List<SaleRecord> findByPeriodAndProductDaleiNameAndBrandAndRegion(Integer period, String productDaleiName, String brand, String region) {
+        return saleRecordRepository.findByPeriodAndProductDaleiNameAndBrandAndRegion(period, productDaleiName, brand, region);
+    }
+
+    @Override
+    public List<SaleRecord> findByPeriodAndProductZhongleiName(Integer period, String productZhongleiName) {
+        return saleRecordRepository.findByPeriodAndProductZhongleiName(period, productZhongleiName);
+    }
+
+    @Override
+    public List<SaleRecord> findByPeriodAndProductZhongleiNameAndBrandAndRegion(Integer period, String productZhongleiName, String brand, String region) {
+        return saleRecordRepository.findByPeriodAndProductZhongleiNameAndBrandAndRegion(period, productZhongleiName, brand, region);
+    }
 }

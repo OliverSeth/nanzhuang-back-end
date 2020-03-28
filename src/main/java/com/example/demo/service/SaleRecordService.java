@@ -24,4 +24,16 @@ public interface SaleRecordService {
     SaleRecord findBySaleRecordId(Integer saleRecordId);
 
     void deleteBySaleRecordId(Integer saleRecordId);
+
+    List<SaleRecord> findByPeriod(Integer period);
+
+    List<SaleRecord> findByPeriodAndBrandAndRegion(Integer period, String brand, String region);
+
+    List<SaleRecord> findByPeriodAndProductDaleiName(Integer period, String productDaleiName);
+
+    List<SaleRecord> findByPeriodAndProductDaleiNameAndBrandAndRegion(Integer period, String productDaleiName, String brand, String region);
+
+    List<SaleRecord> findByPeriodAndProductZhongleiName(Integer period, String productZhongleiName);
+
+    List<SaleRecord> findByPeriodAndProductZhongleiNameAndBrandAndRegion(Integer period, String productZhongleiName, String brand, String region);
 }
