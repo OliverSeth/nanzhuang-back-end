@@ -36,4 +36,9 @@ public class PriceIndexServiceImpl implements PriceIndexService {
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "indexId");
         return priceIndexRepository.findAll(pageable).getContent();
     }
+
+    @Override
+    public PriceIndex save(PriceIndex priceIndex) {
+        return priceIndexRepository.save(priceIndex);
+    }
 }

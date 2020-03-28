@@ -15,4 +15,6 @@ public interface PriceIndexService {
     Long countAll();
 
     List<PriceIndex> findAll(Integer page, Integer size);
+
+    PriceIndex save(PriceIndex priceIndex);
 }
