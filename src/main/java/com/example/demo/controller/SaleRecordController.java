@@ -3,10 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.domain.Product;
 import com.example.demo.domain.SaleRecord;
 import com.example.demo.domain.User;
-import com.example.demo.service.MerchantService;
-import com.example.demo.service.ProductService;
-import com.example.demo.service.SaleRecordService;
-import com.example.demo.service.UserService;
+import com.example.demo.service.*;
 import com.example.demo.utils.ConstantCode;
 import com.example.demo.utils.LogUtils;
 import com.example.demo.utils.PeriodUtils;
@@ -45,6 +42,9 @@ public class SaleRecordController {
 
     @Autowired
     SaleRecordService saleRecordService;
+
+    @Autowired
+    PriceIndexService priceIndexService;
 
     @GetMapping("/all")
     @ApiOperation("分页获取所有销售记录")
@@ -257,5 +257,28 @@ public class SaleRecordController {
             LogUtils.getErrorLog(username, "delete sale record", e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
+    }
+
+    private String calculateChainIndex(List<SaleRecord> oldSaleRecord, List<SaleRecord> newSaleRecord) {
+        double oldPriceSum = 0;
+        double oldNumSum = 0;
+        double newPriceSum = 0;
+        double newNumSum = 0;
+        for (SaleRecord saleRecord : oldSaleRecord) {
+            oldPriceSum += saleRecord.getProductZhongleiSalePrice();
+            oldNumSum += saleRecord.getProductZhongleiSaleNumber();
+        }
+        for (SaleRecord saleRecord : newSaleRecord) {
+            newPriceSum += saleRecord.getProductZhongleiSalePrice();
+            newNumSum += saleRecord.getProductZhongleiSaleNumber();
+        }
+        double chainIndex = newPriceSum * oldNumSum * 100 / oldPriceSum * newNumSum;
+        return String.valueOf(chainIndex);
+    }
+
+    private String calculateChainIndexByPeriod(String lastPeriod, String newPeriod) {
+        List<SaleRecord> oldSaleRecord = saleRecordService.findByPeriod(Integer.parseInt(lastPeriod));
+        List<SaleRecord> newSaleRecord = saleRecordService.findByPeriod(Integer.parseInt(newPeriod));
+        return calculateChainIndex(oldSaleRecord, newSaleRecord);
     }
 }
