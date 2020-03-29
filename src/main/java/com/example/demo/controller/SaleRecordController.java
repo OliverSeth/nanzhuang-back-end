@@ -305,4 +305,10 @@ public class SaleRecordController {
         List<SaleRecord> newSaleRecord = saleRecordService.findByPeriodAndProductZhongleiName(Integer.parseInt(newPeriod), productZhongleiName);
         return calculateChainIndex(oldSaleRecord, newSaleRecord);
     }
+
+    private String calculateChainIndexByPeriodAndProductZhongleiNameAndBrandAndRegion(String lastPeriod, String newPeriod, String productZhongleiName, String brand, String region) {
+        List<SaleRecord> oldSaleRecord = saleRecordService.findByPeriodAndProductZhongleiNameAndBrandAndRegion(Integer.parseInt(lastPeriod), productZhongleiName, brand, region);
+        List<SaleRecord> newSaleRecord = saleRecordService.findByPeriodAndProductZhongleiNameAndBrandAndRegion(Integer.parseInt(newPeriod), productZhongleiName, brand, region);
+        return calculateChainIndex(oldSaleRecord, newSaleRecord);
+    }
 }
