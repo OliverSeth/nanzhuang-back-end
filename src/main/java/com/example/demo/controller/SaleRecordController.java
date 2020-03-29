@@ -287,4 +287,10 @@ public class SaleRecordController {
         List<SaleRecord> newSaleRecord = saleRecordService.findByPeriodAndBrandAndRegion(Integer.parseInt(newPeriod), brand, region);
         return calculateChainIndex(oldSaleRecord, newSaleRecord);
     }
+
+    private String calculateChainIndexByPeriodAndProductDaleiName(String lastPeriod, String newPeriod, String productDaleiName) {
+        List<SaleRecord> oldSaleRecord = saleRecordService.findByPeriodAndProductDaleiName(Integer.parseInt(lastPeriod), productDaleiName);
+        List<SaleRecord> newSaleRecord = saleRecordService.findByPeriodAndProductDaleiName(Integer.parseInt(newPeriod), productDaleiName);
+        return calculateChainIndex(oldSaleRecord, newSaleRecord);
+    }
 }
