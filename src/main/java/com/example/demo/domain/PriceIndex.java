@@ -14,6 +14,7 @@ public class PriceIndex {
     private String periodYear;
     private String periodMonth;
     private String periodDays;
+    private Integer period;
     private String code;
     private String brand;
     private String region;
@@ -25,6 +26,14 @@ public class PriceIndex {
     private String yearOnYearAdjustIndex;
     private String chainIndex;              //环比指数
     private String chainAdjustIndex;
+
+    public Integer getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Integer period) {
+        this.period = period;
+    }
 
     public Integer getDaleiId() {
         return daleiId;
