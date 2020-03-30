@@ -30,4 +30,7 @@ public interface PriceIndexRepository extends JpaRepository<PriceIndex, Integer>
                                             @Param("daleiId") Integer daleiId,
                                             @Param("zhongleiId") Integer zhongleiId,
                                             Pageable pageable);
+
+    PriceIndex findByPeriodAndProductDaleiNameAndProductZhongleiNameAndBrandAndRegion(Integer period, String productDaleiName,
+                                                                                      String productZhongleiName, String brand, String region);
 }

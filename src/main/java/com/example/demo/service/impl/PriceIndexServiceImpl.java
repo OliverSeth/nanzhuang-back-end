@@ -41,4 +41,9 @@ public class PriceIndexServiceImpl implements PriceIndexService {
     public PriceIndex save(PriceIndex priceIndex) {
         return priceIndexRepository.save(priceIndex);
     }
+
+    @Override
+    public PriceIndex findByPeriodAndProductDaleiNameAndProductZhongleiNameAndBrandAndRegion(Integer period, String productDaleiName, String productZhongleiName, String brand, String region) {
+        return priceIndexRepository.findByPeriodAndProductDaleiNameAndProductZhongleiNameAndBrandAndRegion(period, productDaleiName, productZhongleiName, brand, region);
+    }
 }

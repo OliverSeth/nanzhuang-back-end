@@ -17,4 +17,7 @@ public interface PriceIndexService {
     List<PriceIndex> findAll(Integer page, Integer size);
 
     PriceIndex save(PriceIndex priceIndex);
+
+    PriceIndex findByPeriodAndProductDaleiNameAndProductZhongleiNameAndBrandAndRegion(Integer period, String productDaleiName,
+                                                                                      String productZhongleiName, String brand, String region);
 }
