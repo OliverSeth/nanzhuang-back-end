@@ -18,8 +18,8 @@ public class PriceIndex {
     private String code;
     private String brand;
     private String region;
-    private Integer daleiId;
-    private Integer zhongleiId;
+    private String productDaleiName;
+    private String productZhongleiName;
     private String fixedBaseIndex;          //定基指数
     private String fixedBaseAdjustIndex;
     private String yearOnYearIndex;         //同比指数
@@ -35,20 +35,20 @@ public class PriceIndex {
         this.period = period;
     }
 
-    public Integer getDaleiId() {
-        return daleiId;
+    public String getProductDaleiName() {
+        return productDaleiName;
     }
 
-    public void setDaleiId(Integer daleiId) {
-        this.daleiId = daleiId;
+    public void setProductDaleiName(String productDaleiName) {
+        this.productDaleiName = productDaleiName;
     }
 
-    public Integer getZhongleiId() {
-        return zhongleiId;
+    public String getProductZhongleiName() {
+        return productZhongleiName;
     }
 
-    public void setZhongleiId(Integer zhongleiId) {
-        this.zhongleiId = zhongleiId;
+    public void setProductZhongleiName(String productZhongleiName) {
+        this.productZhongleiName = productZhongleiName;
     }
 
     public Integer getIndexId() {
