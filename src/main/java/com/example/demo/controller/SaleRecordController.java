@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.PriceIndex;
 import com.example.demo.domain.Product;
 import com.example.demo.domain.SaleRecord;
 import com.example.demo.domain.User;
@@ -310,5 +311,21 @@ public class SaleRecordController {
         List<SaleRecord> oldSaleRecord = saleRecordService.findByPeriodAndProductZhongleiNameAndBrandAndRegion(Integer.parseInt(lastPeriod), productZhongleiName, brand, region);
         List<SaleRecord> newSaleRecord = saleRecordService.findByPeriodAndProductZhongleiNameAndBrandAndRegion(Integer.parseInt(newPeriod), productZhongleiName, brand, region);
         return calculateChainIndex(oldSaleRecord, newSaleRecord);
+    }
+
+    private String calculateYearOnYearIndex(String period, String productDaleiName, String productZhongleiName,
+                                                    String brand, String region, String chainIndex) {
+        double yearOnYearIndex = Double.parseDouble(chainIndex);
+        for (int i = 0; i < 11; i++) {
+            period = PeriodUtils.lastMonth(period);
+            PriceIndex index = priceIndexService.findByPeriodAndProductDaleiNameAndProductZhongleiNameAndBrandAndRegion(
+                    Integer.parseInt(period), productDaleiName, productZhongleiName, brand, region);
+            if (index == null) {
+                yearOnYearIndex *= 1;
+            } else {
+                yearOnYearIndex *= Double.parseDouble(index.getChainIndex()) / 100;
+            }
+        }
+        return String.valueOf(yearOnYearIndex);
     }
 }
