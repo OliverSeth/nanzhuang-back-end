@@ -46,4 +46,9 @@ public class PriceIndexServiceImpl implements PriceIndexService {
     public PriceIndex findByPeriodAndProductDaleiNameAndProductZhongleiNameAndBrandAndRegion(Integer period, String productDaleiName, String productZhongleiName, String brand, String region) {
         return priceIndexRepository.findByPeriodAndProductDaleiNameAndProductZhongleiNameAndBrandAndRegion(period, productDaleiName, productZhongleiName, brand, region);
     }
+
+    @Override
+    public List<PriceIndex> findAllByPeriod(Integer period) {
+        return priceIndexRepository.findAllByPeriod(period);
+    }
 }

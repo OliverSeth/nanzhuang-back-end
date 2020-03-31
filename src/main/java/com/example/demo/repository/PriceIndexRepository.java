@@ -33,4 +33,6 @@ public interface PriceIndexRepository extends JpaRepository<PriceIndex, Integer>
 
     PriceIndex findByPeriodAndProductDaleiNameAndProductZhongleiNameAndBrandAndRegion(Integer period, String productDaleiName,
                                                                                       String productZhongleiName, String brand, String region);
+
+    List<PriceIndex> findAllByPeriod(Integer period);
 }
