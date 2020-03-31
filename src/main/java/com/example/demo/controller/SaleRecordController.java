@@ -314,7 +314,7 @@ public class SaleRecordController {
     }
 
     private String calculateYearOnYearIndex(String period, String productDaleiName, String productZhongleiName,
-                                                    String brand, String region, String chainIndex) {
+                                            String brand, String region, String chainIndex) {
         double yearOnYearIndex = Double.parseDouble(chainIndex);
         for (int i = 0; i < 11; i++) {
             period = PeriodUtils.lastMonth(period);
@@ -327,5 +327,19 @@ public class SaleRecordController {
             }
         }
         return String.valueOf(yearOnYearIndex);
+    }
+
+    private String calculateFixedBaseIndex(String period, String productDaleiName, String productZhongleiName,
+                                           String brand, String region, String yearOnYearIndex) {
+        double fixedBaseIndex = Double.parseDouble(yearOnYearIndex);
+        period = PeriodUtils.lastYear(period);
+        PriceIndex index = priceIndexService.findByPeriodAndProductDaleiNameAndProductZhongleiNameAndBrandAndRegion(
+                Integer.parseInt(period), productDaleiName, productZhongleiName, brand, region);
+        if (index == null) {
+            return yearOnYearIndex;
+        } else {
+            fixedBaseIndex *= Double.parseDouble(index.getFixedBaseIndex()) / 100;
+        }
+        return String.valueOf(fixedBaseIndex);
     }
 }
