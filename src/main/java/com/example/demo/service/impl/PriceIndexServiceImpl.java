@@ -21,9 +21,9 @@ public class PriceIndexServiceImpl implements PriceIndexService {
 
     @Override
     public List<PriceIndex> findPriceIndexByQuerys(String code, String brand, String region, String periodYear, String periodMonth,
-                                                   String periodDays, Integer daleiId, Integer zhongleiId, Pageable pageable) {
+                                                   String periodDays, String daleiName, String zhongleiName, Pageable pageable) {
         return priceIndexRepository.findPriceIndexByQuerys(code, brand, region, periodYear, periodMonth, periodDays,
-                daleiId, zhongleiId, pageable);
+                daleiName, zhongleiName, pageable);
     }
 
     @Override

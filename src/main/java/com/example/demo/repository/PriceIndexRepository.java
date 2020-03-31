@@ -19,16 +19,16 @@ public interface PriceIndexRepository extends JpaRepository<PriceIndex, Integer>
             "and (p.periodYear = :periodYear or :periodYear is null ) " +
             "and (p.periodMonth = :periodMonth or :periodMonth is null ) " +
             "and (p.periodDays = :periodDays or :periodDays is null ) " +
-            "and (p.daleiId = :daleiId or :daleiId is null ) " +
-            "and (p.zhongleiId = :zhongleiId or :zhongleiId is null )")
+            "and (p.productDaleiName = :productDaleiName or :daleiId is null ) " +
+            "and (p.productZhongleiName = :productZhongleiName or :zhongleiId is null )")
     List<PriceIndex> findPriceIndexByQuerys(@Param("code") String code,
                                             @Param("brand") String brand,
                                             @Param("region") String region,
                                             @Param("periodYear") String periodYear,
                                             @Param("periodMonth") String periodMonth,
                                             @Param("periodDays") String periodDays,
-                                            @Param("daleiId") Integer daleiId,
-                                            @Param("zhongleiId") Integer zhongleiId,
+                                            @Param("productDaleiName") String productDaleiName,
+                                            @Param("productZhongleiName") String productZhongleiName,
                                             Pageable pageable);
 
     PriceIndex findByPeriodAndProductDaleiNameAndProductZhongleiNameAndBrandAndRegion(Integer period, String productDaleiName,

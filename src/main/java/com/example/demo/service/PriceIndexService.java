@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface PriceIndexService {
     List<PriceIndex> findPriceIndexByQuerys(String code, String brand, String region, String periodYear, String periodMonth,
-                                            String periodDays, Integer daleiId, Integer zhongleiId, Pageable pageable);
+                                            String periodDays, String daleiName, String zhongleiName, Pageable pageable);
 
     Long countAll();
 
