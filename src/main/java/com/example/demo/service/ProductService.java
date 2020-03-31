@@ -21,4 +21,6 @@ public interface ProductService {
     Product save(Product product);
 
     void deleteByProductId(Integer productId);
+
+    List<Product> findAllByDaleiId(Integer daleiId);
 }

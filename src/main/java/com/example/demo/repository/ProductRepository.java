@@ -18,4 +18,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findAllByTypeLevel(String typeLevel);
 
     void deleteByProductId(Integer productId);
+
+    List<Product> findAllByDaleiId(Integer daleiId);
 }

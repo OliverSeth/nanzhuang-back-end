@@ -50,4 +50,9 @@ public class ProductServiceImpl implements ProductService {
     public void deleteByProductId(Integer productId) {
         productRepository.deleteByProductId(productId);
     }
+
+    @Override
+    public List<Product> findAllByDaleiId(Integer daleiId) {
+        return productRepository.findAllByDaleiId(daleiId);
+    }
 }
