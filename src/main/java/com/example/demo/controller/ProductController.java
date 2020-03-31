@@ -142,4 +142,20 @@ public class ProductController {
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }
+
+    @GetMapping("get-mid")
+    @ApiOperation("按大类id获取中类")
+    @ApiImplicitParam(paramType = "query", name = "productId", value = "产品大类id", required = true)
+    public Result getMiddleProduct(Integer productId) {
+        try {
+            List<Product> list = productService.findAllByDaleiId(productId);
+            LogUtils.getInfoLog("", "get middle product list by dalei id");
+            Map<String, List<Product>> map = new HashMap<>();
+            map.put("productList", list);
+            return Result.success(map);
+        } catch (Exception e) {
+            LogUtils.getErrorLog("get middle product list by dalei id", e);
+            return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
+        }
+    }
 }
