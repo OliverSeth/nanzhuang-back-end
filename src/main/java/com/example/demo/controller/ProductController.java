@@ -35,7 +35,7 @@ public class ProductController {
             @ApiImplicitParam(paramType = "query", name = "productCode", value = "产品代码", required = true),
             @ApiImplicitParam(paramType = "query", name = "productName", value = "产品名称", required = true),
             @ApiImplicitParam(paramType = "query", name = "typeLevel", value = "类别等级", required = true),
-            @ApiImplicitParam(paramType = "query", name = "daleiId", value = "产品大类id"),
+            @ApiImplicitParam(paramType = "query", name = "daleiId", value = "产品大类id", dataType = "int"),
     })
     public Result addProduct(HttpServletRequest request) {
         String username = (String) request.getAttribute("username");
