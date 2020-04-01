@@ -42,7 +42,12 @@ public class ProductController {
         String productCode = request.getParameter("productCode");
         String productName = request.getParameter("productName");
         String typeLevel = request.getParameter("typeLevel");
-        Integer daleiId = Integer.parseInt(request.getParameter("daleiId"));
+        Integer daleiId;
+        if (request.getParameter("daleiId") == null) {
+            daleiId = null;
+        } else {
+            daleiId = Integer.parseInt(request.getParameter("daleiId"));
+        }
         if (productCode == null || productCode.equals("")) {
             LogUtils.getWarnLog(username, "submit empty product code when add product.");
             return Result.failed(1, "Empty product code.");
