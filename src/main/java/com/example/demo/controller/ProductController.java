@@ -139,6 +139,12 @@ public class ProductController {
     public Result deleteProduct(HttpServletRequest request, Integer productId) {
         String username = (String) request.getAttribute("username");
         try {
+            if (productService.findByProductId(productId).getTypeLevel().equals("Big")) {
+                List<Product> zhongleiList = productService.findAllByDaleiId(productId);
+                for (Product product : zhongleiList) {
+                    productService.deleteByProductId(product.getProductId());
+                }
+            }
             productService.deleteByProductId(productId);
             LogUtils.getInfoLog(username, "delete product " + productId.toString());
             return Result.success();
