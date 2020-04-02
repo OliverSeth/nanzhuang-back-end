@@ -2,7 +2,9 @@ package com.example.demo.repository;
 
 import com.example.demo.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -17,6 +19,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findAllByTypeLevel(String typeLevel);
 
+    @Modifying
+    @Transactional
     void deleteByProductId(Integer productId);
 
     List<Product> findAllByDaleiId(Integer daleiId);

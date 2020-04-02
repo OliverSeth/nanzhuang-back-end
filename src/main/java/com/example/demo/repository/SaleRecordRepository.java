@@ -46,5 +46,7 @@ public interface SaleRecordRepository extends JpaRepository<SaleRecord, Integer>
 
     SaleRecord findBySaleRecordId(Integer saleRecordId);
 
+    @Modifying
+    @Transactional
     void deleteBySaleRecordId(Integer saleRecordId);
 }
