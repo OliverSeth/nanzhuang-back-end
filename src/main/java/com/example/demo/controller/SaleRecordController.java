@@ -59,6 +59,10 @@ public class SaleRecordController {
             pageSize = 20;
         }
         pageNum--;
+        if (pageNum < 0 || pageSize <= 0) {
+            LogUtils.getWarnLog("Invalid pageNum or pageSize.");
+            return Result.failed(1, "Invalid pageNum or pageSize.");
+        }
         try {
             List<SaleRecord> page = saleRecordService.findAll(pageNum, pageSize);
             Long length = saleRecordService.countAll();
@@ -97,7 +101,7 @@ public class SaleRecordController {
             pageSize = 20;
         }
         pageNum--;
-        if (pageNum <= 0 || pageSize <= 0) {
+        if (pageNum < 0 || pageSize <= 0) {
             LogUtils.getWarnLog("Invalid pageNum or pageSize.");
             return Result.failed(1, "Invalid pageNum or pageSize.");
         }

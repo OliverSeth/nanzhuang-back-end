@@ -43,6 +43,10 @@ public class PriceIndexController {
             pageSize = 20;
         }
         pageNum--;
+        if (pageNum < 0 || pageSize <= 0) {
+            LogUtils.getWarnLog("Invalid pageNum or pageSize.");
+            return Result.failed(1, "Invalid pageNum or pageSize.");
+        }
         try {
             List<PriceIndex> list = priceIndexService.findAll(pageNum, pageSize);
             Long length = priceIndexService.countAll();
@@ -80,7 +84,7 @@ public class PriceIndexController {
             pageSize = 20;
         }
         pageNum--;
-        if (pageNum <= 0 || pageSize <= 0) {
+        if (pageNum < 0 || pageSize <= 0) {
             LogUtils.getWarnLog("Invalid pageNum or pageSize.");
             return Result.failed(1, "Invalid pageNum or pageSize.");
         }
