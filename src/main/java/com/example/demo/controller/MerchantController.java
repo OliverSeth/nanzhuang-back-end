@@ -8,6 +8,7 @@ import com.example.demo.service.UserService;
 import com.example.demo.utils.ConstantCode;
 import com.example.demo.utils.LogUtils;
 import com.example.demo.utils.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +24,7 @@ import java.util.Map;
 /**
  * Created by Oliver Seth on 2020/2/15 16:00
  */
+@Api(tags = {"商户管理接口"})
 @RestController
 @RequestMapping("/merchant")
 public class MerchantController {

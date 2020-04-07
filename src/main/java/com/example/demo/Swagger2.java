@@ -34,10 +34,10 @@ public class Swagger2 {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("nanzhuang")
+                .title("常熟男装价格指数系统接口")
                 .description("BASE_URL:120.77.204.51:8089")
 //                .termsOfServiceUrl("http://www.baidu.com")
-                .contact("Oliver")
+                .contact("舒章磊")
                 .version("1.0")
                 .build();
     }

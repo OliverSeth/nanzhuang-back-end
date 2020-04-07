@@ -7,6 +7,7 @@ import com.example.demo.realm.JWTUtils;
 import com.example.demo.utils.ConstantCode;
 import com.example.demo.utils.Result;
 import com.example.demo.utils.LogUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +26,7 @@ import java.util.Map;
 /**
  * Created by Oliver Seth on 2020/1/31 23:23
  */
+@Api(tags = {"用户管理接口"})
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -32,7 +34,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/auth")
-    @ApiOperation(value = "不要用这个接口", notes = "不要用这个接口")
+    @ApiOperation(value = "不要用这个接口", notes = "不要用这个接口",hidden = true)
     public Result auth(int code) {
         String msg = (code == 1) ? "未登录" : "未授权";
         return Result.failed(ConstantCode.UNAUTHORIZED_CODE, msg);

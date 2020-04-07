@@ -5,6 +5,7 @@ import com.example.demo.service.ProductService;
 import com.example.demo.utils.ConstantCode;
 import com.example.demo.utils.LogUtils;
 import com.example.demo.utils.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +23,7 @@ import java.util.Map;
 /**
  * Created by Oliver Seth on 2020/2/17 16:59
  */
+@Api(tags = {"产品管理接口"})
 @RestController
 @RequestMapping("/product")
 public class ProductController {

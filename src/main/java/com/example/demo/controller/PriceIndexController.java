@@ -5,6 +5,7 @@ import com.example.demo.service.PriceIndexService;
 import com.example.demo.utils.ConstantCode;
 import com.example.demo.utils.LogUtils;
 import com.example.demo.utils.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +24,7 @@ import java.util.Map;
 /**
  * Created by Oliver Seth on 2020/3/5 19:03
  */
+@Api(tags = {"价格指数接口"})
 @RestController
 @RequestMapping("price-index")
 public class PriceIndexController {

@@ -8,6 +8,7 @@ import com.example.demo.utils.ConstantCode;
 import com.example.demo.utils.LogUtils;
 import com.example.demo.utils.PeriodUtils;
 import com.example.demo.utils.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,7 @@ import java.util.Map;
 /**
  * Created by Oliver Seth on 2020/2/18 17:33
  */
+@Api(tags = {"销售数据接口"})
 @RestController
 @RequestMapping("sale-record")
 public class SaleRecordController {
