@@ -39,7 +39,11 @@ public class PeriodUtils {
         if (period.substring(4, 6).equals("01")) {
             return lastYear(period).substring(0, 4) + "12" + period.substring(6);
         } else {
-            return period.substring(0, 4) + (Integer.parseInt(period.substring(4, 6)) - 1) + period.substring(6);
+            String month = String.valueOf(Integer.parseInt(period.substring(4, 6)) - 1);
+            if (month.length() == 1) {
+                month = '0' + month;
+            }
+            return period.substring(0, 4) + month + period.substring(6);
         }
     }
 
@@ -47,7 +51,11 @@ public class PeriodUtils {
         if (period.substring(6).equals("01")) {
             return lastMonth(period).substring(0, 6) + "03";
         } else {
-            return period.substring(0, 6) + (Integer.parseInt(period.substring(6, 8)) - 1);
+            String day = String.valueOf(Integer.parseInt(period.substring(6, 8)) - 1);
+            if (day.length() == 1) {
+                day = '0' + day;
+            }
+            return period.substring(0, 6) + day;
         }
     }
 }

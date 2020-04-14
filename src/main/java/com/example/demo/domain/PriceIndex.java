@@ -27,6 +27,9 @@ public class PriceIndex {
     private String chainIndex;              //环比指数
     private String chainAdjustIndex;
 
+    public PriceIndex() {
+    }
+
     public PriceIndex(String periodYear, String periodMonth, String periodDays, Integer period, String code, String brand, String region, String productDaleiName, String productZhongleiName, String fixedBaseIndex, String fixedBaseAdjustIndex, String yearOnYearIndex, String yearOnYearAdjustIndex, String chainIndex, String chainAdjustIndex) {
         this.periodYear = periodYear;
         this.periodMonth = periodMonth;

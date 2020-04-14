@@ -384,6 +384,9 @@ public class SaleRecordController {
     }
 
     private String calculateChainIndex(List<SaleRecord> oldSaleRecord, List<SaleRecord> newSaleRecord) {
+        if (oldSaleRecord.size() == 0 || newSaleRecord.size() == 0) {
+            return "100";
+        }
         double oldPriceSum = 0;
         double oldNumSum = 0;
         double newPriceSum = 0;
@@ -396,7 +399,7 @@ public class SaleRecordController {
             newPriceSum += saleRecord.getProductZhongleiSalePrice();
             newNumSum += saleRecord.getProductZhongleiSaleNumber();
         }
-        double chainIndex = newPriceSum * oldNumSum * 100 / oldPriceSum * newNumSum;
+        double chainIndex = newPriceSum * oldNumSum * 100 / (oldPriceSum * newNumSum);
         LogUtils.getInfoLog("", "calculateChainIndex");
         return String.valueOf(chainIndex);
     }
