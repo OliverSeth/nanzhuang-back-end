@@ -226,6 +226,14 @@ public class SaleRecordController {
                 return Result.failed(9, "No permission.");
             }
             Integer period = Integer.parseInt(periodYear + periodMonth + periodDays);
+            Thread calculateThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    calculateIndex(String.valueOf(period));
+                    LogUtils.getInfoLog(username, "Thread " + Thread.currentThread().getName() + " calculate index");
+                }
+            });
+            calculateThread.start();
             SaleRecord saleRecord = saleRecordService.save(new SaleRecord(username, periodYear, periodMonth, periodDays,
                     period, brand, region, merchantName, businessCode, uniqueCode, productDaleiCode, productDaleiName,
                     productDaleiSales, productZhongleiCode, productZhongleiName, productZhongleiSalePrice,
