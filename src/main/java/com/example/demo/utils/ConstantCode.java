@@ -10,7 +10,7 @@ public class ConstantCode {
 
     public static final Integer UNAUTHORIZED_CODE = 98;
 
-    public static final String[] BRAND=new String[]{"common","famous"};
+    public static final String[] BRAND=new String[]{"普通","知名"};
 
-    public static final String[] REGION=new String[]{"local","foreign"};
+    public static final String[] REGION=new String[]{"本地","外来"};
 }
