@@ -285,33 +285,33 @@ public class SaleRecordController {
             chainIndex = "100";
         }
         List<Product> daleiList = productService.findAllByTypeLevel("big");
-        calculateIndexByPeriod(newPeriod, oldPeriod, chainIndex);
-        calculateIndexByPeriodAndBrandAndRegion(newPeriod, oldPeriod, chainIndex);
+        calculateIndexByPeriod("11", newPeriod, oldPeriod, chainIndex);
+        calculateIndexByPeriodAndBrandAndRegion("11", newPeriod, oldPeriod, chainIndex);
         for (Product daleiProduct : daleiList) {
-            calculateIndexByPeriodAndProductDaleiName(newPeriod, oldPeriod, chainIndex, daleiProduct.getProductName());
-            calculateIndexByPeriodAndProductDaleiNameAndBrandAndRegion(newPeriod, oldPeriod, chainIndex, daleiProduct.getProductName());
+            calculateIndexByPeriodAndProductDaleiName(daleiProduct.getProductCode(), newPeriod, oldPeriod, chainIndex, daleiProduct.getProductName());
+            calculateIndexByPeriodAndProductDaleiNameAndBrandAndRegion(daleiProduct.getProductCode(), newPeriod, oldPeriod, chainIndex, daleiProduct.getProductName());
             List<Product> zhongleiList = productService.findAllByDaleiId(daleiProduct.getProductId());
             for (Product zhongleiProduct : zhongleiList) {
-                calculateIndexByPeriodAndProductZhongleiName(newPeriod, oldPeriod, chainIndex, daleiProduct.getProductName(), zhongleiProduct.getProductName());
-                calculateIndexByPeriodAndProductZhongleiNameAndBrandAndRegion(newPeriod, oldPeriod, chainIndex, daleiProduct.getProductName(), zhongleiProduct.getProductName());
+                calculateIndexByPeriodAndProductZhongleiName(zhongleiProduct.getProductCode(), newPeriod, oldPeriod, chainIndex, daleiProduct.getProductName(), zhongleiProduct.getProductName());
+                calculateIndexByPeriodAndProductZhongleiNameAndBrandAndRegion(zhongleiProduct.getProductCode(), newPeriod, oldPeriod, chainIndex, daleiProduct.getProductName(), zhongleiProduct.getProductName());
             }
         }
         LogUtils.getInfoLog("", "calculateIndex");
     }
 
-    private void calculateIndexByPeriod(String newPeriod, String oldPeriod, String chainIndex) {
+    private void calculateIndexByPeriod(String code, String newPeriod, String oldPeriod, String chainIndex) {
         if (!chainIndex.equals("100")) {
             chainIndex = calculateChainIndexByPeriod(oldPeriod, newPeriod);
         }
         String yearOnYearIndex = calculateYearOnYearIndex(newPeriod, "all", "all", "all", "all", chainIndex);
         String fixedBaseIndex = calculateFixedBaseIndex(newPeriod, "all", "all", "all", "all", yearOnYearIndex);
         priceIndexService.save(new PriceIndex(newPeriod.substring(0, 4), newPeriod.substring(4, 6), newPeriod.substring(6),
-                Integer.parseInt(newPeriod), ConstantCode.CODE, "all", "all", "all", "all",
+                Integer.parseInt(newPeriod), code, "all", "all", "all", "all",
                 fixedBaseIndex, "", yearOnYearIndex, "", chainIndex, ""));
         LogUtils.getInfoLog("", "calculateIndexByPeriod");
     }
 
-    private void calculateIndexByPeriodAndBrandAndRegion(String newPeriod, String oldPeriod, String chainIndex) {
+    private void calculateIndexByPeriodAndBrandAndRegion(String code, String newPeriod, String oldPeriod, String chainIndex) {
         String rowIndex = chainIndex;
         for (String brand : ConstantCode.BRAND) {
             for (String region : ConstantCode.REGION) {
@@ -321,7 +321,7 @@ public class SaleRecordController {
                 String yearOnYearIndex = calculateYearOnYearIndex(newPeriod, "all", "all", brand, region, chainIndex);
                 String fixedBaseIndex = calculateFixedBaseIndex(newPeriod, "all", "all", brand, region, yearOnYearIndex);
                 priceIndexService.save(new PriceIndex(newPeriod.substring(0, 4), newPeriod.substring(4, 6), newPeriod.substring(6),
-                        Integer.parseInt(newPeriod), ConstantCode.CODE, brand, region, "all", "all",
+                        Integer.parseInt(newPeriod), code, brand, region, "all", "all",
                         fixedBaseIndex, "", yearOnYearIndex, "", chainIndex, ""));
                 chainIndex = rowIndex;
             }
@@ -329,19 +329,19 @@ public class SaleRecordController {
         LogUtils.getInfoLog("", "calculateIndexByPeriodAndBrandAndRegion");
     }
 
-    private void calculateIndexByPeriodAndProductDaleiName(String newPeriod, String oldPeriod, String chainIndex, String productDaleiName) {
+    private void calculateIndexByPeriodAndProductDaleiName(String code, String newPeriod, String oldPeriod, String chainIndex, String productDaleiName) {
         if (!chainIndex.equals("100")) {
             chainIndex = calculateChainIndexByPeriodAndProductDaleiName(oldPeriod, newPeriod, productDaleiName);
         }
         String yearOnYearIndex = calculateYearOnYearIndex(newPeriod, productDaleiName, "all", "all", "all", chainIndex);
         String fixedBaseIndex = calculateFixedBaseIndex(newPeriod, productDaleiName, "all", "all", "all", yearOnYearIndex);
         priceIndexService.save(new PriceIndex(newPeriod.substring(0, 4), newPeriod.substring(4, 6), newPeriod.substring(6),
-                Integer.parseInt(newPeriod), ConstantCode.CODE, "all", "all", productDaleiName, "all",
+                Integer.parseInt(newPeriod), code, "all", "all", productDaleiName, "all",
                 fixedBaseIndex, "", yearOnYearIndex, "", chainIndex, ""));
         LogUtils.getInfoLog("", "calculateIndexByPeriodAndProductDaleiName");
     }
 
-    private void calculateIndexByPeriodAndProductDaleiNameAndBrandAndRegion(String newPeriod, String oldPeriod, String chainIndex, String productDaleiName) {
+    private void calculateIndexByPeriodAndProductDaleiNameAndBrandAndRegion(String code, String newPeriod, String oldPeriod, String chainIndex, String productDaleiName) {
         String rowIndex = chainIndex;
         for (String brand : ConstantCode.BRAND) {
             for (String region : ConstantCode.REGION) {
@@ -352,7 +352,7 @@ public class SaleRecordController {
                 String yearOnYearIndex = calculateYearOnYearIndex(newPeriod, productDaleiName, "all", brand, region, chainIndex);
                 String fixedBaseIndex = calculateFixedBaseIndex(newPeriod, productDaleiName, "all", brand, region, yearOnYearIndex);
                 priceIndexService.save(new PriceIndex(newPeriod.substring(0, 4), newPeriod.substring(4, 6), newPeriod.substring(6),
-                        Integer.parseInt(newPeriod), ConstantCode.CODE, brand, region, productDaleiName, "all",
+                        Integer.parseInt(newPeriod), code, brand, region, productDaleiName, "all",
                         fixedBaseIndex, "", yearOnYearIndex, "", chainIndex, ""));
                 chainIndex = rowIndex;
             }
@@ -360,19 +360,19 @@ public class SaleRecordController {
         LogUtils.getInfoLog("", "calculateIndexByPeriodAndProductDaleiNameAndBrandAndRegion");
     }
 
-    private void calculateIndexByPeriodAndProductZhongleiName(String newPeriod, String oldPeriod, String chainIndex, String productDaleiName, String productZhongleiName) {
+    private void calculateIndexByPeriodAndProductZhongleiName(String code, String newPeriod, String oldPeriod, String chainIndex, String productDaleiName, String productZhongleiName) {
         if (!chainIndex.equals("100")) {
             chainIndex = calculateChainIndexByPeriodAndProductZhongleiName(oldPeriod, newPeriod, productZhongleiName);
         }
         String yearOnYearIndex = calculateYearOnYearIndex(newPeriod, productDaleiName, productZhongleiName, "all", "all", chainIndex);
         String fixedBaseIndex = calculateFixedBaseIndex(newPeriod, productDaleiName, productZhongleiName, "all", "all", yearOnYearIndex);
         priceIndexService.save(new PriceIndex(newPeriod.substring(0, 4), newPeriod.substring(4, 6), newPeriod.substring(6),
-                Integer.parseInt(newPeriod), ConstantCode.CODE, "all", "all", productDaleiName, productZhongleiName,
+                Integer.parseInt(newPeriod), code, "all", "all", productDaleiName, productZhongleiName,
                 fixedBaseIndex, "", yearOnYearIndex, "", chainIndex, ""));
         LogUtils.getInfoLog("", "calculateIndexByPeriodAndProductZhongleiName");
     }
 
-    private void calculateIndexByPeriodAndProductZhongleiNameAndBrandAndRegion(String newPeriod, String oldPeriod, String chainIndex, String productDaleiName, String productZhongleiName) {
+    private void calculateIndexByPeriodAndProductZhongleiNameAndBrandAndRegion(String code, String newPeriod, String oldPeriod, String chainIndex, String productDaleiName, String productZhongleiName) {
         String rowIndex = chainIndex;
         for (String brand : ConstantCode.BRAND) {
             for (String region : ConstantCode.REGION) {
@@ -383,7 +383,7 @@ public class SaleRecordController {
                 String yearOnYearIndex = calculateYearOnYearIndex(newPeriod, productDaleiName, productZhongleiName, brand, region, chainIndex);
                 String fixedBaseIndex = calculateFixedBaseIndex(newPeriod, productDaleiName, productZhongleiName, brand, region, yearOnYearIndex);
                 priceIndexService.save(new PriceIndex(newPeriod.substring(0, 4), newPeriod.substring(4, 6), newPeriod.substring(6),
-                        Integer.parseInt(newPeriod), ConstantCode.CODE, brand, region, productDaleiName, productZhongleiName,
+                        Integer.parseInt(newPeriod), code, brand, region, productDaleiName, productZhongleiName,
                         fixedBaseIndex, "", yearOnYearIndex, "", chainIndex, ""));
                 chainIndex = rowIndex;
             }

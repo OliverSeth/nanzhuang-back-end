@@ -10,8 +10,6 @@ public class ConstantCode {
 
     public static final Integer UNAUTHORIZED_CODE = 98;
 
-    public static final String CODE = "11";
-
     public static final String[] BRAND=new String[]{"common","famous"};
 
     public static final String[] REGION=new String[]{"local","foreign"};
