@@ -102,7 +102,7 @@ public class MerchantController {
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation("/删除商户")
+    @ApiOperation("删除商户")
     @ApiImplicitParam(paramType = "query", name = "merchantId", value = "商户id", required = true, dataType = "int")
     public Result deleteMerchant(HttpServletRequest request) {
         Integer merchantId = Integer.valueOf(request.getParameter("merchantId"));
