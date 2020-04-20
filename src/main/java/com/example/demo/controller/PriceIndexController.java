@@ -98,7 +98,7 @@ public class PriceIndexController {
         periodDays = periodDays.trim().isEmpty() ? null : periodDays;
         daleiName = daleiName.trim().isEmpty() ? null : daleiName;
         zhongleiName = zhongleiName.trim().isEmpty() ? null : zhongleiName;
-        Pageable pageable = PageRequest.of(pageNum, pageSize, Sort.Direction.DESC, "indexId");
+        Pageable pageable = PageRequest.of(pageNum, pageSize, Sort.Direction.DESC, "period");
         try {
             List<PriceIndex> list = priceIndexService.findPriceIndexByQuerys(code, brand, region, periodYear, periodMonth,
                     periodDays, daleiName, zhongleiName, pageable);
