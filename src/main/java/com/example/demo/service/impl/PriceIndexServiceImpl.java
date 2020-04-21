@@ -33,7 +33,7 @@ public class PriceIndexServiceImpl implements PriceIndexService {
 
     @Override
     public List<PriceIndex> findAll(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "indexId");
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "period");
         return priceIndexRepository.findAll(pageable).getContent();
     }
 
