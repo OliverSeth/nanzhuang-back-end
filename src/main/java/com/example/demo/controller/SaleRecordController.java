@@ -407,6 +407,9 @@ public class SaleRecordController {
             newPriceSum += saleRecord.getProductZhongleiSalePrice();
             newNumSum += saleRecord.getProductZhongleiSaleNumber();
         }
+        if (newPriceSum == 0 || oldNumSum == 0 || oldPriceSum == 0 || newNumSum == 0) {
+            return "100";
+        }
         double chainIndex = newPriceSum * oldNumSum * 100 / (oldPriceSum * newNumSum);
         LogUtils.getInfoLog("", "calculateChainIndex");
         return String.valueOf(chainIndex);
