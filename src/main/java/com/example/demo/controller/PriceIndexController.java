@@ -9,14 +9,17 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +62,26 @@ public class PriceIndexController {
             return Result.success(map);
         } catch (Exception e) {
             LogUtils.getErrorLog("get all price index", e);
+            return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
+        }
+    }
+
+    @DeleteMapping("delete")
+    @RequiresRoles("admin")
+    @ApiOperation("按期数删除价格指数")
+    @ApiImplicitParam(paramType = "query", name = "period", value = "期数")
+    public Result deletePriceIndex(String period, HttpServletRequest request) {
+        String username = (String) request.getAttribute("username");
+        if (period.length() != 8) {
+            LogUtils.getWarnLog(username, "invalid period when delete price index " + period);
+            return Result.failed(1, "Invalid period.");
+        }
+        try {
+            priceIndexService.deleteAllByPeriod(Integer.parseInt(period));
+            LogUtils.getInfoLog(username, "delete price index " + period);
+            return Result.success();
+        } catch (Exception e) {
+            LogUtils.getErrorLog("delete price index " + period, e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }

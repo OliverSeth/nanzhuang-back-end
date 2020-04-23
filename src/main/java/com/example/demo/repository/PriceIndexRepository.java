@@ -3,9 +3,11 @@ package com.example.demo.repository;
 import com.example.demo.domain.PriceIndex;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -36,6 +38,10 @@ public interface PriceIndexRepository extends JpaRepository<PriceIndex, Integer>
 
     List<PriceIndex> findAllByPeriod(Integer period);
 
+    @Modifying
+    @Transactional
+    void deleteAllByPeriod(Integer period);
+
     @Query(value = "select count(p) from PriceIndex p " +
             "where (p.code = :code or :code is null ) " +
             "and (p.brand = :brand or :brand is null ) " +
@@ -46,11 +52,11 @@ public interface PriceIndexRepository extends JpaRepository<PriceIndex, Integer>
             "and (p.productDaleiName = :productDaleiName or :productDaleiName is null ) " +
             "and (p.productZhongleiName = :productZhongleiName or :productZhongleiName is null )")
     Long countByQuerys(@Param("code") String code,
-                                @Param("brand") String brand,
-                                @Param("region") String region,
-                                @Param("periodYear") String periodYear,
-                                @Param("periodMonth") String periodMonth,
-                                @Param("periodDays") String periodDays,
-                                @Param("productDaleiName") String productDaleiName,
-                                @Param("productZhongleiName") String productZhongleiName);
+                       @Param("brand") String brand,
+                       @Param("region") String region,
+                       @Param("periodYear") String periodYear,
+                       @Param("periodMonth") String periodMonth,
+                       @Param("periodDays") String periodDays,
+                       @Param("productDaleiName") String productDaleiName,
+                       @Param("productZhongleiName") String productZhongleiName);
 }

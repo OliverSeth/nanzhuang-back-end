@@ -25,4 +25,6 @@ public interface PriceIndexService {
 
     Long countByQuerys(String code, String brand, String region, String periodYear, String periodMonth,
                        String periodDays, String daleiName, String zhongleiName);
+
+    void deleteAllByPeriod(Integer period);
 }
