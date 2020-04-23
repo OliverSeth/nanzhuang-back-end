@@ -102,7 +102,7 @@ public class PriceIndexController {
         try {
             List<PriceIndex> list = priceIndexService.findPriceIndexByQuerys(code, brand, region, periodYear, periodMonth,
                     periodDays, daleiName, zhongleiName, pageable);
-            Long length = priceIndexService.countAll();
+            Long length = priceIndexService.countByQuerys(code, brand, region, periodYear, periodMonth, periodDays, daleiName, zhongleiName);
             Map<String, Object> map = new HashMap<>();
             map.put("length", length);
             map.put("list", list);

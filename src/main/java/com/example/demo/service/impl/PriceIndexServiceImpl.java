@@ -51,4 +51,9 @@ public class PriceIndexServiceImpl implements PriceIndexService {
     public List<PriceIndex> findAllByPeriod(Integer period) {
         return priceIndexRepository.findAllByPeriod(period);
     }
+
+    @Override
+    public Long countByQuerys(String code, String brand, String region, String periodYear, String periodMonth, String periodDays, String daleiName, String zhongleiName) {
+        return priceIndexRepository.countByQuerys(code, brand, region, periodYear, periodMonth, periodDays, daleiName, zhongleiName);
+    }
 }

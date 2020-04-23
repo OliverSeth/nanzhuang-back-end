@@ -22,4 +22,7 @@ public interface PriceIndexService {
                                                                                       String productZhongleiName, String brand, String region);
 
     List<PriceIndex> findAllByPeriod(Integer period);
+
+    Long countByQuerys(String code, String brand, String region, String periodYear, String periodMonth,
+                       String periodDays, String daleiName, String zhongleiName);
 }
