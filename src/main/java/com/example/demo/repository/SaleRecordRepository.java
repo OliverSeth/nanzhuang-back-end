@@ -49,4 +49,21 @@ public interface SaleRecordRepository extends JpaRepository<SaleRecord, Integer>
     @Modifying
     @Transactional
     void deleteBySaleRecordId(Integer saleRecordId);
+
+    @Query(value = "select count(s) from SaleRecord s " +
+            "where (s.merchantName = :merchantName or :merchantName is null )" +
+            "and (s.businessCode = :businessCode or :businessCode is null )" +
+            "and (s.recodeUsername = :recodeUsername or :recodeUsername is null )" +
+            "and (s.uniqueCode = :uniqueCode or :uniqueCode is null )" +
+            "and (s.productDaleiName = :productDaleiName or :productDaleiName is null )" +
+            "and (s.productZhongleiName = :productZhongleiName or :productZhongleiName is null )" +
+            "and ((s.period between :startTime and :endTime ) or (:startTime is null ) or (:endTime is null ))")
+    Long countByQuerys(@Param("merchantName") String merchantName,
+                       @Param("businessCode") String businessCode,
+                       @Param("recodeUsername") String recodeUsername,
+                       @Param("uniqueCode") String uniqueCode,
+                       @Param("productDaleiName") String productDaleiName,
+                       @Param("productZhongleiName") String productZhongleiName,
+                       @Param("startTime") Integer startTime,
+                       @Param("endTime") Integer endTime);
 }

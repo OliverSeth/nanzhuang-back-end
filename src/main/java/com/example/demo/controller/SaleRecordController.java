@@ -117,7 +117,8 @@ public class SaleRecordController {
         try {
             List<SaleRecord> list = saleRecordService.findSaleRecordByQuerys(merchantName, businessCode, recodeUsername,
                     uniqueCode, productDaleiName, productZhongleiName, startTime, endTime, pageable);
-            Long length = saleRecordService.countAll();
+            Long length = saleRecordService.countByQuerys(merchantName, businessCode, recodeUsername, uniqueCode,
+                    productDaleiName, productZhongleiName, startTime, endTime);
             Map<String, Object> map = new HashMap<>();
             map.put("length", length);
             map.put("list", list);

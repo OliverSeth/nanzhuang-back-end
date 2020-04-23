@@ -41,6 +41,12 @@ public class SaleRecordServiceImpl implements SaleRecordService {
     }
 
     @Override
+    public Long countByQuerys(String merchantName, String businessCode, String recodeUsername, String uniqueCode, String productDaleiName, String productZhongleiName, Integer startTime, Integer endTime) {
+        return saleRecordRepository.countByQuerys(merchantName, businessCode, recodeUsername, uniqueCode, productDaleiName,
+                productZhongleiName, startTime, endTime);
+    }
+
+    @Override
     public SaleRecord save(SaleRecord saleRecord) {
         return saleRecordRepository.save(saleRecord);
     }

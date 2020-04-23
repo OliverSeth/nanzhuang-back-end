@@ -19,6 +19,9 @@ public interface SaleRecordService {
 
     Long countAll();
 
+    Long countByQuerys(String merchantName, String businessCode, String recodeUsername, String uniqueCode,
+                       String productDaleiName, String productZhongleiName, Integer startTime, Integer endTime);
+
     SaleRecord save(SaleRecord saleRecord);
 
     SaleRecord findBySaleRecordId(Integer saleRecordId);
