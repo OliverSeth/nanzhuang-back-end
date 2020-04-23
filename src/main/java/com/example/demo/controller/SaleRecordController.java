@@ -242,6 +242,7 @@ public class SaleRecordController {
                     productDaleiSales, productZhongleiCode, productZhongleiName, productZhongleiSalePrice,
                     productZhongleiSaleNumber, representationNumber, currentPrice, currentSales, A, B, C, D, E, F, note,
                     recordTimeStamp));
+            LogUtils.getInfoLog(username, "add sale record " + period);
             return Result.success(saleRecord);
         } catch (Exception e) {
             LogUtils.getErrorLog(username, "add sale record", e);
