@@ -34,7 +34,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/auth")
-    @ApiOperation(value = "不要用这个接口", notes = "不要用这个接口",hidden = true)
+    @ApiOperation(value = "不要用这个接口", notes = "不要用这个接口", hidden = true)
     public Result auth(int code) {
         String msg = (code == 1) ? "未登录" : "未授权";
         return Result.failed(ConstantCode.UNAUTHORIZED_CODE, msg);
@@ -85,6 +85,10 @@ public class UserController {
         }
         try {
             User user = userService.findByUserName(userName);
+            if (user == null) {
+                LogUtils.getWarnLog("Invalid username");
+                return Result.failed(2, "Invalid username");
+            }
             String pass = (new Md5Hash(password, user.getSalt(), ConstantCode.HASH_ITERATION)).toString();
             if (user.getPassword().equals(pass)) {
                 String token = JWTUtils.sign(userName, pass);
@@ -95,7 +99,7 @@ public class UserController {
                 return Result.success(userInfo);
             } else {
                 LogUtils.getWarnLog(userName, "Wrong Password.");
-                return Result.failed(2, "Wrong Password.");
+                return Result.failed(3, "Wrong Password.");
             }
         } catch (Exception e) {
             LogUtils.getErrorLog(userName, "login", e);

@@ -64,7 +64,6 @@ public class MyShiroRealm extends AuthorizingRealm {
         if(!JWTUtils.verify(token,username,user.getPassword())){
             throw new AuthenticationException("Wrong token!");
         }
-//        if(user.getPassword().equals())
         return new SimpleAuthenticationInfo(token, token, getName());
     }
 }
