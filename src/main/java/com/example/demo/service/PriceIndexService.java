@@ -27,4 +27,8 @@ public interface PriceIndexService {
                        String periodDays, String daleiName, String zhongleiName);
 
     void deleteAllByPeriod(Integer period);
+
+    void changePriceIndex(Integer indexId, String fixedBaseAdjustIndex, String yearOnYearAdjustIndex, String chainAdjustIndex);
+
+    PriceIndex findByIndexId(Integer indexId);
 }

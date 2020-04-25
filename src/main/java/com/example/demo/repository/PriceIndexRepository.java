@@ -59,4 +59,18 @@ public interface PriceIndexRepository extends JpaRepository<PriceIndex, Integer>
                        @Param("periodDays") String periodDays,
                        @Param("productDaleiName") String productDaleiName,
                        @Param("productZhongleiName") String productZhongleiName);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update PriceIndex set " +
+            "fixedBaseAdjustIndex = :fixedBaseAdjustIndex, " +
+            "yearOnYearAdjustIndex = :yearOnYearAdjustIndex, " +
+            "chainAdjustIndex = :chainAdjustIndex " +
+            "where indexId = :indexId")
+    void changePriceIndex(@Param("indexId") Integer indexId,
+                          @Param("fixedBaseAdjustIndex") String fixedBaseAdjustIndex,
+                          @Param("yearOnYearAdjustIndex") String yearOnYearAdjustIndex,
+                          @Param("chainAdjustIndex") String chainAdjustIndex);
+
+    PriceIndex findByIndexId(Integer indexId);
 }

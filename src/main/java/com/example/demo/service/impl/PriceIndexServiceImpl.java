@@ -61,4 +61,14 @@ public class PriceIndexServiceImpl implements PriceIndexService {
     public void deleteAllByPeriod(Integer period) {
         priceIndexRepository.deleteAllByPeriod(period);
     }
+
+    @Override
+    public void changePriceIndex(Integer indexId, String fixedBaseAdjustIndex, String yearOnYearAdjustIndex, String chainAdjustIndex) {
+        priceIndexRepository.changePriceIndex(indexId, fixedBaseAdjustIndex, yearOnYearAdjustIndex, chainAdjustIndex);
+    }
+
+    @Override
+    public PriceIndex findByIndexId(Integer indexId) {
+        return priceIndexRepository.findByIndexId(indexId);
+    }
 }

@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -133,6 +130,32 @@ public class PriceIndexController {
             return Result.success(map);
         } catch (Exception e) {
             LogUtils.getErrorLog("find price index by query", e);
+            return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
+        }
+    }
+
+    @PostMapping("adjust")
+    @RequiresRoles("admin")
+    @ApiOperation("调整价格指数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "indexId", value = "指数id", dataType = "int"),
+            @ApiImplicitParam(paramType = "query", name = "fixedBaseAdjustIndex", value = "定基调整指数"),
+            @ApiImplicitParam(paramType = "query", name = "yearOnYearAdjustIndex", value = "同比调整指数"),
+            @ApiImplicitParam(paramType = "query", name = "chainAdjustIndex", value = "环比调整指数"),
+    })
+    public Result adjustIndex(HttpServletRequest request, Integer indexId, String fixedBaseAdjustIndex, String yearOnYearAdjustIndex, String chainAdjustIndex) {
+        String username = (String) request.getAttribute("username");
+        try {
+            PriceIndex index = priceIndexService.findByIndexId(indexId);
+            if (index == null) {
+                LogUtils.getWarnLog(username, "Index not exist when adjust");
+                return Result.failed(1, "Invalid indexId");
+            }
+            priceIndexService.changePriceIndex(indexId, fixedBaseAdjustIndex, yearOnYearAdjustIndex, chainAdjustIndex);
+            LogUtils.getInfoLog(username, "Adjust index");
+            return Result.success();
+        } catch (Exception e) {
+            LogUtils.getErrorLog(username, "adjust index", e);
             return Result.exception(ConstantCode.BASEEXCEPTION_CODE, e.toString());
         }
     }
