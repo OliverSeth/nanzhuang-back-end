@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -102,6 +103,7 @@ public class MerchantController {
     }
 
     @DeleteMapping("/delete")
+    @RequiresRoles(value = {"merchant", "admin"}, logical = Logical.OR)
     @ApiOperation("删除商户")
     @ApiImplicitParam(paramType = "query", name = "merchantId", value = "商户id", required = true, dataType = "int")
     public Result deleteMerchant(HttpServletRequest request) {
