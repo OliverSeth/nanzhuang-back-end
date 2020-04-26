@@ -66,7 +66,7 @@ public class PriceIndexController {
     @DeleteMapping("delete")
     @RequiresRoles("admin")
     @ApiOperation("按期数删除价格指数")
-    @ApiImplicitParam(paramType = "query", name = "period", value = "期数")
+    @ApiImplicitParam(paramType = "query", name = "period", value = "期数", required = true)
     public Result deletePriceIndex(String period, HttpServletRequest request) {
         String username = (String) request.getAttribute("username");
         if (period.length() != 8) {
@@ -138,10 +138,10 @@ public class PriceIndexController {
     @RequiresRoles("admin")
     @ApiOperation("调整价格指数")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query", name = "indexId", value = "指数id", dataType = "int"),
-            @ApiImplicitParam(paramType = "query", name = "fixedBaseAdjustIndex", value = "定基调整指数"),
-            @ApiImplicitParam(paramType = "query", name = "yearOnYearAdjustIndex", value = "同比调整指数"),
-            @ApiImplicitParam(paramType = "query", name = "chainAdjustIndex", value = "环比调整指数"),
+            @ApiImplicitParam(paramType = "query", name = "indexId", value = "指数id", dataType = "int", required = true),
+            @ApiImplicitParam(paramType = "query", name = "fixedBaseAdjustIndex", value = "定基调整指数", required = true),
+            @ApiImplicitParam(paramType = "query", name = "yearOnYearAdjustIndex", value = "同比调整指数", required = true),
+            @ApiImplicitParam(paramType = "query", name = "chainAdjustIndex", value = "环比调整指数", required = true),
     })
     public Result adjustIndex(HttpServletRequest request, Integer indexId, String fixedBaseAdjustIndex, String yearOnYearAdjustIndex, String chainAdjustIndex) {
         String username = (String) request.getAttribute("username");
